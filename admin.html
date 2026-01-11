@@ -79,7 +79,13 @@
 <body>
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h1>📊 Hostelite Admin Dashboard</h1>
-        <button class="refresh-btn" onclick="loadData()">Refresh Data 🔄</button>
+        <div style="display: flex; gap: 1rem;">
+            <a href="https://console.firebase.google.com/project/hostelite-app/database/hostelite-app-default-rtdb/data"
+                target="_blank" class="refresh-btn" style="background: #2d3436; text-decoration: none;">
+                Manage Database 🛠️
+            </a>
+            <button class="refresh-btn" onclick="loadData()">Refresh Data 🔄</button>
+        </div>
     </div>
 
     <!-- Roommate Requests -->
