@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostelite - Nearby PGs</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        .page-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .listing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Updated Modern Card Styles */
+        .listing-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            /* Softer, spread shadow */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Bouncy spring */
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(45, 52, 54, 0.15);
+        }
+
+        .listing-img-container {
+            overflow: hidden;
+            /* For zoom effect */
+            position: relative;
+        }
+
+        .listing-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .listing-card:hover .listing-img {
+            transform: scale(1.1);
+            /* Zoom effect */
+        }
+
+        .listing-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(to bottom, #ffffff, #fafafa);
+        }
+
+        .listing-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.2rem;
+            color: #2d3436;
+        }
+
+        .listing-info p {
+            color: #636e72;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .listing-price {
+            color: var(--primary-color);
+            font-weight: 800;
+            font-size: 1.4rem;
+            margin-top: auto;
+            /* Push to bottom if needed */
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .badges {
+            display: flex;
+            gap: 0.6rem;
+            margin: 0.8rem 0 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(45, 52, 54, 0.05);
+            /* very light gray */
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            /* Slightly squarer than pill */
+            font-size: 0.8rem;
+            color: #2d3436;
+            font-weight: 600;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            transition: background 0.3s;
+        }
+
+        .listing-card:hover .badge {
+            background: rgba(108, 92, 231, 0.1);
+            color: var(--primary-color);
+        }
+
+        .btn {
+            border-radius: 12px;
+            /* Match card radius style */
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            padding: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Hostelite</div>
+        <ul class="nav-links">
+            <li><a href="index.html">← Back</a></li>
+            <li><a href="#" class="active">Browse PGs</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <h1>PG Near By Handewadi</h1>
+        <p>Explore top-rated stays around you</p>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="listing-grid">
+                <!-- Listing 1: Budget Friendly -->
+                <div class="listing-card" style="position: relative;">
+                    <div class="verified-tag">✅ Verified</div>
+                    <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80"
+                        alt="Hostel" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Sai Student Hostel</h3>
+                        <div class="commute-info">⏱️ 2 min walk to College</div>
+                        <p>Handewadi Road, Pune</p>
+                        <div class="badges">
+                            <span class="badge">Boys</span>
+                            <span class="badge">WiFi</span>
+                            <span class="badge">2 Sharing</span>
+                        </div>
+                        <div class="listing-price">₹3,500/mo</div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 2: Premium -->
+                <div class="listing-card">
+                    <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=500&q=80"
+                        alt="Hostel" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Stanza Living (Handewadi)</h3>
+                        <p>Near JSPM College, Handewadi</p>
+                        <div class="badges">
+                            <span class="badge">Co-ed</span>
+                            <span class="badge">AC</span>
+                            <span class="badge">Meals</span>
+                            <span class="badge">Gym</span>
+                        </div>
+                        <div class="listing-price">₹7,500/mo</div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 3: Girls PG -->
+                <div class="listing-card">
+                    <img src="https://images.unsplash.com/photo-1522771753033-6a9a695f1c96?auto=format&fit=crop&w=500&q=80"
+                        alt="Hostel" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Sunrise Girls Residency</h3>
+                        <p>Sainagar, Handewadi</p>
+                        <div class="badges">
+                            <span class="badge">Girls</span>
+                            <span class="badge">CCTV</span>
+                            <span class="badge">Biometric</span>
+                            <span class="badge">Food</span>
+                        </div>
+                        <div class="listing-price">₹5,000/mo</div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 4: Apartment -->
+                <div class="listing-card">
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=500&q=80"
+                        alt="Flat" class="listing-img">
+                    <div class="listing-info">
+                        <h3>1BHK Student Flat</h3>
+                        <p>Undri-Handewadi Road</p>
+                        <div class="badges">
+                            <span class="badge">Flat</span>
+                            <span class="badge">Kitchen</span>
+                            <span class="badge">No Brokerage</span>
+                        </div>
+                        <div class="listing-price">₹12,000/mo</div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 5: Budget Boys -->
+                <div class="listing-card">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=500&q=80"
+                        alt="Hostel" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Arnav Boys PG</h3>
+                        <p>Near Arnav Complex, Handewadi</p>
+                        <div class="badges">
+                            <span class="badge">Boys</span>
+                            <span class="badge">Food</span>
+                            <span class="badge">Budget</span>
+                        </div>
+                        <div class="listing-price">₹2,500/mo</div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 6: Co-ed Standard -->
+                <div class="listing-card">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=500&q=80"
+                        alt="PG" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Praacchi Borkarr PG</h3>
+                        <p>Handewadi Road</p>
+                        <div class="badges">
+                            <span class="badge">Co-ed</span>
+                            <span class="badge">WiFi</span>
+                            <span class="badge">AC</span>
+                        </div>
+                        <div class="listing-price">₹3,900/mo</div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 7: Girls Hostel -->
+                <div class="listing-card">
+                    <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80"
+                        alt="Hostel" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Subhadra Girls Hostel</h3>
+                        <p>Handewadi-Hadapsar Link Rd</p>
+                        <div class="badges">
+                            <span class="badge">Girls</span>
+                            <span class="badge">Clean</span>
+                            <span class="badge">Ventilated</span>
+                        </div>
+                        <div class="listing-price">₹4,500/mo</div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 8: Premium Apartment -->
+                <div class="listing-card">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=500&q=80"
+                        alt="Apartment" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Jhala Simplicity (Luxury)</h3>
+                        <p>Pune East, Handewadi</p>
+                        <div class="badges">
+                            <span class="badge">Flat</span>
+                            <span class="badge">Furnished</span>
+                            <span class="badge">High-rise</span>
+                        </div>
+                        <div class="listing-price">₹16,500/mo</div>
+                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listing 9 (Meheriya Residency) -->
+            <div class="listing-card">
+                <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=500&q=80"
+                    alt="Meheriya Residency" class="listing-img">
+                <div class="listing-info">
+                    <h3>Meheriya Residency</h3>
+                    <p>Handewadi, Pune</p>
+                    <div class="badges">
+                        <span class="badge">1BHK & 2BHK</span>
+                        <span class="badge">24h Water</span>
+                        <span class="badge">CCTV</span>
+                    </div>
+                    <div class="listing-price">₹7,000 - ₹9,000/mo</div>
+                    <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img src="" alt="Property" class="modal-img" id="modalImg">
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle">Title</h2>
+                <div class="modal-price" id="modalPrice">₹0/mo</div>
+
+                <p id="modalDesc" style="margin-bottom: 1.5rem; color: #636e72;">Description goes here.</p>
+
+                <div class="modal-details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Location</div>
+                        <div class="detail-value">
+                            <span id="modalLocation">Location</span>
+                            <a id="modalMapLink" href="#" target="_blank"
+                                style="font-size: 0.85rem; color: var(--primary-color); margin-left: 5px; text-decoration: none;">📍
+                                Map</a>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Contact</div>
+                        <div class="detail-value" id="modalContact">+91 98765 43210</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Amenities</div>
+                        <div class="detail-value" id="modalAmenities">WiFi, Food</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Availability</div>
+                        <div class="detail-value" style="color: #2ecc71;">Available Now</div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button id="bookVisitBtn" class="btn" style="flex: 1;">
+                        <span style="font-size: 1.1rem; vertical-align: middle;">💬</span> Book Visit via WhatsApp
+                    </button>
+                    <button id="callNowBtn" class="btn" style="flex: 1; background: #2ecc71;">
+                        <span style="font-size: 1.1rem; vertical-align: middle;">📞</span> Call Now
+                    </button>
+                </div>
+                <button onclick="openFeedbackModal()" class="btn"
+                    style="width: 100%; margin-top: 1rem; background: #f1c40f; color: #2d3436;">
+                    ⭐ Write a Review
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal-overlay" style="z-index: 2100;">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <button class="modal-close" onclick="closeFeedbackModal()">&times;</button>
+            <div class="modal-body">
+                <h2 class="modal-title" style="margin-bottom: 0.5rem;">Rate & Review 📝</h2>
+                <p id="feedbackTargetName"
+                    style="color: var(--secondary-color); font-weight: 600; margin-bottom: 1rem;">
+                    Target Name</p>
+
+                <form onsubmit="submitFeedback(event)">
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5" required /><label for="star5"
+                            title="5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
+                            title="4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
+                            title="3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
+                            title="2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
+                            title="1 star">★</label>
+                    </div>
+
+                    <textarea class="feedback-textarea"
+                        placeholder="Share your experience... (Validation, Cleanliness, etc.)" required></textarea>
+
+                    <button type="submit" class="btn" style="width: 100%;">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Animation (Reuse reused structure but simpler) -->
+    <div id="feedbackSuccess" class="modal-overlay" style="z-index: 2200; display: none;">
+        <div class="modal-content" style="max-width: 300px; text-align: center; padding: 2rem;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+            <h3 style="color: var(--secondary-color);">Thanks!</h3>
+            <p>Your review helps others.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Hostelite. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Database of Details (Mock)
+        const pgData = {
+            'Sai Student Hostel': {
+                location: 'Handewadi Road, Opp. Zeal College, Pune',
+                contact: '+91 98220 12345',
+                amenities: 'WiFi, 24x7 Water, RO, Parking',
+                desc: 'A budget-friendly hostel specifically for engineering students. Strictly non-smoking. Quiet environment for studies.'
+            },
+            'Stanza Living (Handewadi)': {
+                location: 'Near JSPM College Main Gate, Handewadi, Pune',
+                contact: '+91 88888 55555',
+                amenities: 'AC, Gym, Gaming Zone, 4 Meals',
+                desc: 'Premium student living experience with professionally managed services, daily housekeeping, and community events.'
+            },
+            'Sunrise Girls Residency': {
+                location: 'Lane 4, Sainagar, Handewadi, Pune',
+                contact: '+91 99999 00000',
+                amenities: 'Biometric Entry, Lady Warden, CCTV',
+                desc: 'Secure and homely environment for female students. Home-cooked food provided twice a day. Curfew at 9:30 PM.'
+            },
+            '1BHK Student Flat': {
+                location: 'Royal Park Society, Undri-Handewadi Rd, Pune',
+                contact: '+91 70200 11111',
+                amenities: 'Semi-furnished, Kitchen, Gated Society',
+                desc: 'Ideal for 2-3 senior students who want independence. Includes gas connection and water heater. No owner interference.'
+            },
+            'Arnav Boys PG': {
+                location: 'Near Arnav Complex, Handewadi, Pune',
+                contact: '+91 99221 54321',
+                amenities: 'Lunch & Dinner, Shared Room, Basic Bedding',
+                desc: 'Very affordable option for boys. Includes two meals a day. Simple, no-frills accommodation close to the main road.'
+            },
+            'Praacchi Borkarr PG': {
+                location: 'Main Handewadi Road, Pune',
+                contact: '+91 88000 77000',
+                amenities: 'WiFi, AC, Food Available, 4-Sharing',
+                desc: 'Co-ed PG with modern amenities. AC rooms available on request. Good connectivity to public transport.'
+            },
+            'Subhadra Girls Hostel': {
+                location: 'Handewadi-Hadapsar Link Road, Pune',
+                contact: '+91 91580 98765',
+                amenities: 'Separate Washrooms, Ventilated, WiFi',
+                desc: 'Known for cleanliness and safety. Each room has good ventilation. Strict security measures in place for residents.'
+            },
+            'Jhala Simplicity (Luxury)': {
+                location: 'Jhala Simplicity, 2nd Floor, Handewadi, Pune',
+                contact: '+91 77700 88800',
+                amenities: '2BHK Flat, Fully Furnished, Lift, Power Backup',
+                desc: 'High-end living in a premium society. 2BHK flat available for group rent. Access to society garden and walking track.'
+            },
+            'Magarpatta City PG': {
+                location: 'Magarpatta City, Near Destination Center, Pune',
+                contact: '+91 90001 90001',
+                amenities: 'Attached Washroom, AC, Housekeeping, Hi-Speed WiFi',
+                desc: 'Premium single-occupancy rooms for professionals and senior students. Walking distance to IT parks and shopping malls.'
+            },
+            'Amanora Boys Hostel': {
+                location: 'Behind Amanora Mall, Hadapsar, Pune',
+                contact: '+91 90002 90002',
+                amenities: '3-Sharing, WiFi, Mess (Veg/Non-Veg), Laundry',
+                desc: 'Budget-friendly boys hostel with a lively atmosphere. Includes all meals and weekly laundry service. Very close to cinema and food court.'
+            },
+            'Undri Student Hub': {
+                location: 'Undri-Pisoli Road, Near Bishops School, Pune',
+                contact: '+91 90003 90003',
+                amenities: 'Gym, Gaming Room, Library, Power Backup',
+                desc: 'Modern co-living space designed for students. Features common study areas, recreational zones, and regular community events.'
+            },
+            'Indira Girls Residency': {
+                location: 'Indira Nagar, Undri, Pune',
+                contact: '+91 90004 90004',
+                amenities: 'CCTV, Warden, Transport Facility, Biometric',
+                desc: 'Focuses on safety and convenience for female students. Offers transport facility to nearby colleges. Strictly monitored entry/exit.'
+            },
+            'Meheriya Residency': {
+                location: 'Meheriya Residency, Handewadi, Pune',
+                contact: '+91 96739 59174',
+                amenities: '24hr Water, CCTV, Parking',
+                desc: 'Clean flats (1BHK & 2BHK) with a good and silent environment for students. Note: Light bill excluded. Curfew 10 PM. No WiFi.',
+                mapLink: 'https://maps.app.goo.gl/8m9nC6Tt9cQ7wiws7'
+            }
+        };
+
+        function openModal(card) {
+            const title = card.querySelector('h3').innerText;
+            const price = card.querySelector('.listing-price').innerText;
+            const imgSrc = card.querySelector('.listing-img').src;
+            const data = pgData[title] || {
+                location: 'Handewadi, Pune',
+                contact: '+91 90000 00000',
+                amenities: 'Standard Amenities',
+                desc: 'Comfortable stay with all basic facilities.'
+            };
+
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = price;
+            document.getElementById('modalImg').src = imgSrc;
+
+            document.getElementById('modalLocation').innerText = data.location;
+
+            // Map Link Logic
+            if (data.mapLink) {
+                document.getElementById('modalMapLink').href = data.mapLink;
+            } else {
+                document.getElementById('modalMapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.location)}`;
+            }
+
+            document.getElementById('modalContact').innerText = data.contact;
+            document.getElementById('modalAmenities').innerText = data.amenities;
+            document.getElementById('modalDesc').innerText = data.desc;
+
+            // WhatsApp & Call Integration
+            const cleanNumber = data.contact.replace(/[^\d]/g, '');
+            const waBtn = document.getElementById('bookVisitBtn');
+            const callBtn = document.getElementById('callNowBtn');
+
+            waBtn.onclick = () => {
+                const text = `Hi, I saw your PG "${title}" on Hostelite. I am interested and would like to book a visit.`;
+                const url = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(text)}`;
+                window.open(url, '_blank');
+            };
+
+            callBtn.onclick = () => {
+                window.location.href = `tel:${cleanNumber}`;
+            };
+
+            document.getElementById('detailModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        // Close on outside click
+        document.getElementById('detailModal').addEventListener('click', (e) => {
+            if (e.target.id === 'detailModal') closeModal();
+        });
+
+        // Attach listeners to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            // Check for View Details (trimmed and case-insensitive)
+            if (btn.textContent.trim().toUpperCase() === 'VIEW DETAILS') {
+                btn.onclick = function () {
+                    openModal(this.closest('.listing-card'));
+                };
+            }
+        });
+
+        // Feedback Logic
+        function openFeedbackModal() {
+            const title = document.getElementById('modalTitle').innerText;
+            document.getElementById('feedbackTargetName').innerText = title;
+            document.getElementById('feedbackModal').classList.add('active');
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedbackModal').classList.remove('active');
+        }
+
+        function submitFeedback(e) {
+            e.preventDefault();
+            // Mock Submission
+            closeFeedbackModal();
+            const successModal = document.getElementById('feedbackSuccess');
+            successModal.style.display = 'flex';
+
+            // Generate confetti
+            if (window.confetti) {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+
+            setTimeout(() => {
+                successModal.style.display = 'none';
+                closeModal(); // Close the main detail modal too
+            }, 2000);
+        }
+
+        // Close feedback on outside click
+        document.getElementById('feedbackModal').addEventListener('click', (e) => {
+            if (e.target.id === 'feedbackModal') closeFeedbackModal();
+        });
+    </script>
+    <!-- Firebase SDK (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

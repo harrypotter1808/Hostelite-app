@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostelite - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Hostelite</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="pg-listings.html">PGs</a></li>
+            <li><a href="mess-listings.html">Mess</a></li>
+            <li><a href="roommate.html">Find Roommate</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1>Find Your Perfect Student Home</h1>
+            <p>Tell our AI what you're looking for (e.g., "Shared room near University under ₹5000")</p>
+            <div class="ai-search-container">
+                <input type="text" class="search-input" placeholder="Describe your ideal PG...">
+                <button class="btn search-btn">AI Match ✨</button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+
+    <section id="pg" class="section">
+        <div class="container">
+            <h2>Hostelite Services</h2>
+            <p>Long-term stay options with home-cooked meals and laundry services.</p>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Single/Shared Rooms</h3>
+                    <p>Affordable monthly rates for students and professionals.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Home-cooked Meals</h3>
+                    <p>Healthy breakfast and dinner included.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about-section">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title">Why Students Love Hostelite ❤️</h2>
+            <p class="section-subtitle">We're not just a directory. We're your college survival kit.</p>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; text-align: left;">
+
+                <!-- Feature 1 -->
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s;"
+                    onmouseover="this.style.transform='translateY(-10px)'"
+                    onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🏠</div>
+                    <h3 style="margin-bottom: 0.5rem; color: var(--primary-color);">Second Home Vibes</h3>
+                    <p style="color: #636e72; line-height: 1.6;">Forget strict wardens and gloomy rooms. We list places
+                        that offer freedom, fun, and a true student community. Find your tribe here.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s;"
+                    onmouseover="this.style.transform='translateY(-10px)'"
+                    onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🍱</div>
+                    <h3 style="margin-bottom: 0.5rem; color: #e67e22;">Ghar Ka Khana</h3>
+                    <p style="color: #636e72; line-height: 1.6;">Miss mom's cooking? Our Mess listings feature top-rated
+                        local tiffin services that deliver hygienic, tasty, and budget-friendly meals.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s;"
+                    onmouseover="this.style.transform='translateY(-10px)'"
+                    onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🤖</div>
+                    <h3 style="margin-bottom: 0.5rem; color: #6c5ce7;">AI Buddy Search</h3>
+                    <p style="color: #636e72; line-height: 1.6;">Don't scroll for hours. Just tell our AI "I need a
+                        cheap room with WiFi under 4k" and watch the magic happen instantly.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="location" class="section map-section">
+        <div class="container">
+            <h2>Find Us Here</h2>
+            <p>Centrally located near Keystone School of Engineering, Handewadi.</p>
+            <div class="map-container">
+                <iframe
+                    src="https://maps.google.com/maps?q=Keystone+School+of+Engineering,+Handewadi,+Pune&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+
+
+    </section>
+
+    <!-- Student Reviews Section -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <h2>What Seniors Say 💬</h2>
+            <p>Real experiences from students living in Handewadi.</p>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Mahakal Mess literally saved me. 50 rupees for a full stomach is a blessing at month end!"</p>
+                    <div class="reviewer">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Student">
+                        <span>Rahul K. (TE Comp)</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐</div>
+                    <p>"Stanza Living is expensive but the gym and wifi speed make it worth it for coding."</p>
+                    <div class="reviewer">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Student">
+                        <span>Priya S. (BE IT)</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Found my flatmate through Hostelite! Only issue is Handewadi road traffic lol."</p>
+                    <div class="reviewer">
+                        <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Student">
+                        <span>Amit D. (SE Mech)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </p>
+
+
+    </div>
+    </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Hostelite. All rights reserved.</p>
+    </footer>
+
+    <!-- AI Chat Widget -->
+    <div id="aiChatWidget" class="ai-chat-widget">
+        <div class="chat-header">
+            <span>🤖 Hostelite Assistant</span>
+            <button id="closeChat">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">Hello! I'm your AI guide. Ask me about "cheap PGs", "best mess", or "gyms"!
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Ask something..." onkeypress="handleChatInput(event)">
+            <button onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+    <button id="chatToggleBtn" class="chat-toggle-btn">💬</button>
+
+    <!-- Firebase SDK (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/UAParser.js/1.0.35/ua-parser.min.js"></script>
+    <script src="script.js" defer></script>
+</body>
+
+</html>

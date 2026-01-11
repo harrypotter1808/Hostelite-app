@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Roommate - Hostelite</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Hostelite</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pg-listings.html">PGs</a></li>
+            <li><a href="mess-listings.html">Mess</a></li>
+            <li><a href="roommate.html" class="active">Find Roommate</a></li>
+            <li><a href="index.html#about">About</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="roommate-page-container">
+        <div class="page-header-text">
+            <h1>Find Your Vibe Match 🤝</h1>
+            <p>Connect with students who share your lifestyle. Simple, safe, and improved.</p>
+        </div>
+
+        <div class="split-layout">
+            <!-- Left: Form -->
+            <div class="form-section">
+                <h2 style="margin-bottom: 1.5rem; color: var(--secondary-color);">Create Your Request</h2>
+                <form class="contact-form" id="roommateForm" onsubmit="submitRoommateForm(event)">
+                    <div id="formContent">
+                        <input type="text" id="rName" placeholder="Your Name (e.g. Rahul)" required
+                            style="width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px;">
+                        <input type="tel" id="rContact" placeholder="WhatsApp Number" required
+                            style="width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px;">
+
+                        <p style="margin: 0.5rem 0 0.5rem; color: #636e72; font-weight: 600;">Choose your vibe:</p>
+                        <div class="vibe-chips">
+                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Night Owl 🦉')">Night Owl
+                                🦉</button>
+                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Early Bird ☀️')">Early
+                                Bird ☀️</button>
+                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Gamer 🎮')">Gamer
+                                🎮</button>
+                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Studious 📚')">Studious
+                                📚</button>
+                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Fitness 💪')">Fitness
+                                💪</button>
+                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Music 🎵')">Music
+                                🎵</button>
+                        </div>
+                        <input type="hidden" id="rType" required>
+
+                        <textarea id="rReq" placeholder="Requirements? (e.g. Non-smoker, Pure Veg)" rows="3"
+                            style="width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px;"></textarea>
+                        <button type="submit" class="btn" style="width: 100%; font-size: 1.1rem;">Post Request
+                            ✨</button>
+                    </div>
+
+                    <!-- Success Animation Container -->
+                    <div id="successAnim" style="display: none; text-align: center; padding: 2rem;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+                        <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;">Request Live!</h3>
+                        <p>Your card has been added to the board.</p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right: Community Board -->
+            <div class="community-section">
+                <h2 style="margin-bottom: 1.5rem; color: var(--secondary-color);">Students Looking Now 👇</h2>
+                <div class="board-grid" id="communityGrid">
+                    <div class="loading-spinner" style="color: var(--text-color);">Loading community...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostelite - Student Mess</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        .page-header {
+            background-color: #e67e22;
+            /* Different color for Mess */
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+            position: relative;
+        }
+
+        .nearby-btn-container {
+            position: absolute;
+            top: 2rem;
+            right: 5%;
+        }
+
+        @media (max-width: 768px) {
+            .nearby-btn-container {
+                position: static;
+                margin-top: 1.5rem;
+                display: block;
+            }
+        }
+
+        .listing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .listing-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .listing-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .listing-info {
+            padding: 1.5rem;
+        }
+
+        .listing-price {
+            color: #d35400;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .badges {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: var(--light-bg);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #636e72;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Hostelite</div>
+        <ul class="nav-links">
+            <li><a href="index.html">← Back</a></li>
+            <li><a href="#" class="active">Browse Mess</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <h1>Student Mess & Tiffin</h1>
+        <p>Healthy, home-cooked, and affordable meals nearby</p>
+        <div class="nearby-btn-container">
+            <a href="https://www.google.com/maps/search/restaurants+near+Keystone+School+of+Engineering+Pune"
+                target="_blank" class="btn"
+                style="background: white; color: #e67e22; padding: 0.6rem 1.2rem; font-size: 0.9rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                🍔 Find Nearby Restaurants
+            </a>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="listing-grid">
+                <!-- Listing 1 (Mahakal Mess) - TOP PRIORITY -->
+                <div class="listing-card" style="position: relative;">
+                    <div class="verified-tag">✅ Verified</div>
+                    <img src="mess-1.jpg" alt="Mahakal Mess" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Mahakal Mess</h3>
+                        <div class="commute-info">⏱️ 5 min walk to Campus</div>
+                        <p>Near Handewadi</p>
+                        <div class="badges">
+                            <span class="badge">Home Made</span>
+                            <span class="badge">Budget</span>
+                            <span class="badge">Lunch/Dinner</span>
+                        </div>
+                        <div class="listing-price">₹50 - ₹70/meal</div>
+                        <button class="btn" style="background-color: #e67e22; margin-top: 1rem; width: 100%;">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 2 (Hande Mess) - TOP PRIORITY -->
+                <div class="listing-card" style="position: relative;">
+                    <div class="verified-tag">✅ Verified</div>
+                    <img src="mess-2.jpg" alt="Thali" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Hande Mess</h3>
+                        <div class="commute-info">⏱️ 8 min walk</div>
+                        <p>Handewadi Road</p>
+                        <div class="badges">
+                            <span class="badge">Home Style</span>
+                            <span class="badge">Budget</span>
+                            <span class="badge">Monthly</span>
+                        </div>
+                        <div class="listing-price">₹2,400/mo</div>
+                        <button class="btn" style="background-color: #e67e22; margin-top: 1rem; width: 100%;">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 3 (Radhakrishna Mess) - TOP PRIORITY -->
+                <div class="listing-card" style="position: relative;">
+                    <div class="verified-tag">✅ Verified</div>
+                    <img src="mess-3.jpg" alt="Restaurant" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Radhakrishna Mess & Dining</h3>
+                        <div class="commute-info">⏱️ 3 min drive</div>
+                        <p>Near Handewadi Chowk</p>
+                        <div class="badges">
+                            <span class="badge">Veg/Non-Veg</span>
+                            <span class="badge">Dine-in</span>
+                            <span class="badge">Premium</span>
+                        </div>
+                        <div class="listing-price">₹3,200/mo</div>
+                        <button class="btn" style="background-color: #e67e22; margin-top: 1rem; width: 100%;">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 4 -->
+                <div class="listing-card">
+                    <img src="mess-4.jpg" alt="Authentic Thali" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Annapurna Mess</h3>
+                        <p>Hadapsar-Handewadi Road</p>
+                        <div class="badges">
+                            <span class="badge">Pure Veg</span>
+                            <span class="badge">Unlimited</span>
+                            <span class="badge">Monthly</span>
+                        </div>
+                        <div class="listing-price">₹2,800/mo</div>
+                        <button class="btn" style="background-color: #e67e22; margin-top: 1rem; width: 100%;">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 5 -->
+                <div class="listing-card">
+                    <img src="mess-5.jpg" alt="Tiffin Service" class="listing-img">
+                    <div class="listing-info">
+                        <h3>W S Tiffin Service</h3>
+                        <p>Handewadi, Pune</p>
+                        <div class="badges">
+                            <span class="badge">Veg/Non-Veg</span>
+                            <span class="badge">Delivery</span>
+                            <span class="badge">24 Hours</span>
+                        </div>
+                        <div class="listing-price">₹3,500/mo</div>
+                        <button class="btn" style="background-color: #e67e22; margin-top: 1rem; width: 100%;">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 6 -->
+                <div class="listing-card">
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=500&q=80"
+                        alt="South Indian Dosa" class="listing-img">
+                    <div class="listing-info">
+                        <h3>South Indian Amma Mess</h3>
+                        <p>Handewadi Road</p>
+                        <div class="badges">
+                            <span class="badge">South Indian</span>
+                            <span class="badge">Breakfast</span>
+                            <span class="badge">Budget</span>
+                        </div>
+                        <div class="listing-price">₹100/meal (Avg)</div>
+                        <button class="btn" style="background-color: #e67e22; margin-top: 1rem; width: 100%;">View
+                            Details</button>
+                    </div>
+                </div>
+
+                <!-- Listing 7 -->
+                <div class="listing-card">
+                    <img src="https://images.unsplash.com/photo-1605333396915-47edadb29faa?auto=format&fit=crop&w=500&q=80"
+                        alt="Healthy Roti Meal" class="listing-img">
+                    <div class="listing-info">
+                        <h3>Tiffit (Healthy Meals)</h3>
+                        <p>Handewadi Area</p>
+                        <div class="badges">
+                            <span class="badge">Healthy</span>
+                            <span class="badge">Low Oil</span>
+                            <span class="badge">Custom Diet</span>
+                        </div>
+                        <div class="listing-price">₹120/meal</div>
+                        <button class="btn" style="background-color: #e67e22; margin-top: 1rem; width: 100%;">View
+                            Details</button>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img src="" alt="Food" class="modal-img" id="modalImg">
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle" style="color: #e67e22;">Title</h2>
+                <div class="modal-price" id="modalPrice" style="color: #d35400;">₹0/mo</div>
+
+                <p id="modalDesc" style="margin-bottom: 1.5rem; color: #636e72;">Description goes here.</p>
+
+                <div class="modal-details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Location</div>
+                        <div class="detail-value">
+                            <span id="modalLocation">Location</span>
+                            <a id="modalMapLink" href="#" target="_blank"
+                                style="font-size: 0.85rem; color: #e67e22; margin-left: 5px; text-decoration: none;">📍
+                                Map</a>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Contact</div>
+                        <div class="detail-value" id="modalContact">+91 98765 43210</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Cuisine</div>
+                        <div class="detail-value" id="modalCuisine">North Indian</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Delivery</div>
+                        <div class="detail-value" style="color: #2ecc71;" id="modalDelivery">Available</div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button id="getMenuBtn" class="btn" style="flex: 1; background-color: #e67e22;">
+                        <span style="font-size: 1.1rem; vertical-align: middle;">📜</span> Get Menu (WhatsApp)
+                    </button>
+                    <button id="callMessBtn" class="btn" style="flex: 1; background: #2ecc71;">
+                        <span style="font-size: 1.1rem; vertical-align: middle;">📞</span> Call Now
+                    </button>
+                </div>
+                <button onclick="openFeedbackModal()" class="btn"
+                    style="width: 100%; margin-top: 1rem; background: #f1c40f; color: #2d3436;">
+                    ⭐ Write a Review
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal-overlay" style="z-index: 2100;">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <button class="modal-close" onclick="closeFeedbackModal()">&times;</button>
+            <div class="modal-body">
+                <h2 class="modal-title" style="margin-bottom: 0.5rem;">Rate & Review 📝</h2>
+                <p id="feedbackTargetName" style="color: #e67e22; font-weight: 600; margin-bottom: 1rem;">
+                    Target Name</p>
+
+                <form onsubmit="submitFeedback(event)">
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5" required /><label for="star5"
+                            title="5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
+                            title="4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
+                            title="3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
+                            title="2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
+                            title="1 star">★</label>
+                    </div>
+
+                    <textarea class="feedback-textarea" placeholder="Share your experience... (Taste, Hygiene, etc.)"
+                        required></textarea>
+
+                    <button type="submit" class="btn" style="width: 100%; background: #e67e22;">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Animation -->
+    <div id="feedbackSuccess" class="modal-overlay" style="z-index: 2200; display: none;">
+        <div class="modal-content" style="max-width: 300px; text-align: center; padding: 2rem;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+            <h3 style="color: #e67e22;">Thanks!</h3>
+            <p>Your review helps others.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Hostelite. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Database of Mess Details
+        const messData = {
+            'Annapurna Mess': {
+                location: 'Near Gliding Centre, Hadapsar-Handewadi Rd, Pune',
+                contact: '+91 98500 12345',
+                cuisine: 'Pure Veg, Maharashtrian Thali',
+                delivery: 'Lunch & Dinner',
+                desc: 'Famous for affordable monthly subscriptions. Unlimited chapati and rice options available. Fresh vegetables used daily.'
+            },
+            'W S Tiffin Service': {
+                location: 'Handewadi Chowk, Main Road, Pune',
+                contact: '+91 99220 56789',
+                cuisine: 'Veg & Non-Veg, Jain Options',
+                delivery: '24 Hours Delivery',
+                desc: 'Reliable service for students and working professionals. Offers specific Jain meals and late-night delivery options.'
+            },
+            'South Indian Amma Mess': {
+                location: 'Lane 2, Handewadi Road, Pune',
+                contact: '+91 88888 11111',
+                cuisine: 'Dosa, Idli, Uttapam, Rice',
+                delivery: 'Breakfast Only',
+                desc: 'Authentic South Indian taste at budget prices. perfect for breakfast and light dinners. Filter coffee available.'
+            },
+            'Tiffit (Healthy Meals)': {
+                location: 'Handewadi Area (Cloud Kitchen), Pune',
+                contact: '+91 70200 99999',
+                cuisine: 'Healthy Salads, Roti-Sabzi, Low Oil',
+                delivery: 'Lunch Dabba',
+                desc: 'Home-style food with less oil and no preservatives. Great for fitness conscious students. Custom diet plans available.'
+            },
+            'Hande Mess': {
+                location: 'Handewadi Road, Pune',
+                contact: '+91 744 745 9597',
+                cuisine: 'Maharashtrian Home Style',
+                delivery: 'Tiffin Available',
+                desc: 'Known for simple, hygienic daily meals. famous for "Zunka Bhakar" and vegetable thalis. Very popular among students.'
+            },
+            'Radhakrishna Mess & Dining': {
+                location: 'Hadapsar Gaon, Near Handewadi Chowk, Pune',
+                contact: '+91 90005 90005',
+                cuisine: 'Veg & Non-Veg Multi-Cuisine',
+                delivery: 'Home Delivery',
+                desc: 'Offers a wider variety including Punjabi and Chinese dishes aside from regular thali. Good option for Sunday special meals.'
+            },
+            'Mahakal Mess': {
+                location: 'Mahakal Mess, Handewadi, Pune',
+                contact: '+91 96048 96974',
+                cuisine: 'Home Made Cooked Meal',
+                delivery: '8am-3pm & 5pm-10pm',
+                desc: 'Best food quality at cheap rates. Half plate ₹50, Full plate ₹70. Authentic home taste.',
+                mapLink: 'https://maps.app.goo.gl/QbYfzuQwAB1wS3pVA'
+            }
+        };
+
+        function openModal(card) {
+            const title = card.querySelector('h3').innerText;
+            const price = card.querySelector('.listing-price').innerText;
+            const imgSrc = card.querySelector('.listing-img').src;
+            const data = messData[title] || {
+                location: 'Handewadi, Pune',
+                contact: '+91 90000 00000',
+                cuisine: 'Standard Indian Meals',
+                delivery: 'Available',
+                desc: 'Healthy and hygienic food.'
+            };
+
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = price;
+            document.getElementById('modalImg').src = imgSrc;
+
+            document.getElementById('modalLocation').innerText = data.location;
+            document.getElementById('modalMapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.location)}`;
+
+            document.getElementById('modalContact').innerText = data.contact;
+            document.getElementById('modalCuisine').innerText = data.cuisine;
+            document.getElementById('modalDelivery').innerText = data.delivery;
+            document.getElementById('modalDesc').innerText = data.desc;
+
+            // WhatsApp & Call Integration
+            const cleanNumber = data.contact.replace(/[^\d]/g, '');
+            const waBtn = document.getElementById('getMenuBtn');
+            const callBtn = document.getElementById('callMessBtn');
+
+            waBtn.onclick = () => {
+                const text = `Hi, I saw your Mess "${title}" on Hostelite. Could you please share the today's menu/tiffin details?`;
+                const url = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(text)}`;
+                window.open(url, '_blank');
+            };
+
+            callBtn.onclick = () => {
+                window.location.href = `tel:${cleanNumber}`;
+            };
+
+            document.getElementById('detailModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        // Close on outside click
+        document.getElementById('detailModal').addEventListener('click', (e) => {
+            if (e.target.id === 'detailModal') closeModal();
+        });
+
+        // Attach listeners to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            if (btn.innerText === 'View Details') {
+                btn.onclick = function () {
+                    openModal(this.closest('.listing-card'));
+                };
+            }
+        });
+
+        // Feedback Logic
+        function openFeedbackModal() {
+            const title = document.getElementById('modalTitle').innerText;
+            document.getElementById('feedbackTargetName').innerText = title;
+            document.getElementById('feedbackModal').classList.add('active');
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedbackModal').classList.remove('active');
+        }
+
+        function submitFeedback(e) {
+            e.preventDefault();
+            closeFeedbackModal();
+            const successModal = document.getElementById('feedbackSuccess');
+            successModal.style.display = 'flex';
+
+            setTimeout(() => {
+                successModal.style.display = 'none';
+                closeModal();
+            }, 2000);
+        }
+
+        document.getElementById('feedbackModal').addEventListener('click', (e) => {
+            if (e.target.id === 'feedbackModal') closeFeedbackModal();
+        });
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
