@@ -311,12 +311,17 @@
             db.ref('admin_creds').once('value').then(snap => {
                 const creds = snap.val();
                 if (!creds) {
-                    // First time run? Auto-set the email they entered as the admin email!
+                    // Start fresh
                     creds = { username: 'admin', password: '123', email: email };
                     db.ref('admin_creds').set(creds);
-                    alert('First time setup: Your email has been registered as the Admin Recovery Email.');
+                    alert('First time setup: Email registered!');
+                } else if (creds.email === 'admin@hostelite.com') {
+                    // Case: User never set a real email, but DB has default. Allow overwrite!
+                    db.ref('admin_creds/email').set(email);
+                    alert('Default email replaced with your email: ' + email);
+                    // Continue to send OTP...
                 } else if (creds.email !== email) {
-                    alert('Email mismatch! The confirmed Admin email is: ' + creds.email);
+                    alert('Email mismatch! Registered Admin Email is: ' + creds.email);
                     return;
                 }
 
