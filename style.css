@@ -471,6 +471,12 @@ footer {
     position: relative;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
     animation: slideUp 0.3s ease-out;
+    max-height: 90vh;
+    /* Ensure it fits on screen */
+    overflow-y: auto;
+    /* Enable scrolling if content is too long */
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-close {
