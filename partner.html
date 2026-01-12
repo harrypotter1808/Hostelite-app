@@ -4,60 +4,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hostelite Partner Portal</title>
+    <title>Hostelite Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         body {
             font-family: 'Outfit', sans-serif;
-            background: #f0f2f5;
-            color: #2d3436;
+            background: #eef2f6;
         }
 
         .glass-card {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.02);
-            transition: transform 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #4f46e5;
+            color: #4f46e5;
+        }
+
+        .tab-inactive {
+            color: #9ca3af;
         }
     </style>
 </head>
 
-<body class="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-4">
 
-    <!-- Login Section -->
-    <div id="loginSection" class="glass-card p-8 w-full max-w-md">
-        <div class="text-center mb-8">
-            <div class="text-4xl mb-2">🔐</div>
-            <h1 class="text-2xl font-bold text-gray-800">Partner Login</h1>
-            <p class="text-gray-500 text-sm">Manage your Hostelite availability</p>
+    <!-- LOGIN CONTAINER (Visible initially) -->
+    <div id="loginContainer" class="glass-card w-full max-w-md p-6 relative overflow-hidden">
+
+        <!-- Header / Tabs -->
+        <div class="flex justify-center gap-8 mb-8 border-b border-gray-100 pb-2">
+            <button onclick="switchTab('partner')" id="tabPartner"
+                class="text-lg font-bold pb-2 tab-active transition">Partner</button>
+            <button onclick="switchTab('admin')" id="tabAdmin"
+                class="text-lg font-bold pb-2 tab-inactive transition">Admin</button>
         </div>
 
-        <form onsubmit="handleLogin(event)" class="space-y-4">
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Property ID</label>
-                <input type="text" id="propId" placeholder="e.g. pg_sai_student"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50"
-                    required>
+        <!-- PARTNER LOGIN FORM -->
+        <div id="partnerView">
+            <div class="text-center mb-6">
+                <h2 class="text-xl font-bold">Property Owner</h2>
             </div>
-
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Password / PIN</label>
-                <input type="password" id="pin" placeholder="••••"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50"
+            <form onsubmit="handlePartnerLogin(event)" class="space-y-4">
+                <input type="text" id="propId" placeholder="Property ID"
+                    class="w-full px-4 py-3 rounded-xl border bg-gray-50 outline-none focus:ring-2 focus:ring-indigo-100"
                     required>
-            </div>
+                <input type="password" id="pin" placeholder="PIN"
+                    class="w-full px-4 py-3 rounded-xl border bg-gray-50 outline-none focus:ring-2 focus:ring-indigo-100"
+                    required>
+                <button type="submit"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition">Login</button>
+            </form>
+        </div>
 
-            <button type="submit"
-                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-indigo-200">
-                Access Dashboard
-            </button>
-        </form>
+        <!-- ADMIN LOGIN FORM -->
+        <div id="adminView" class="hidden">
+            <div class="text-center mb-6">
+                <h2 class="text-xl font-bold text-red-500">Super Admin</h2>
+            </div>
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <input type="text" id="adminUser" placeholder="Username"
+                    class="w-full px-4 py-3 rounded-xl border bg-gray-50 outline-none focus:ring-2 focus:ring-red-100"
+                    required>
+                <input type="password" id="adminPass" placeholder="Password"
+                    class="w-full px-4 py-3 rounded-xl border bg-gray-50 outline-none focus:ring-2 focus:ring-red-100"
+                    required>
+                <button type="submit"
+                    class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-xl transition">Admin
+                    Access</button>
+            </form>
+            <div class="text-center mt-4">
+                <button onclick="showRecovery()" class="text-sm text-gray-500 hover:text-red-500 underline">Forgot
+                    Password?</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Dashboard Section (Hidden) -->
+    <!-- PARTNER DASHBOARD (Hidden initially) -->
     <div id="dashboardSection" class="hidden w-full max-w-2xl">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
@@ -117,79 +144,110 @@
                 </p>
             </div>
         </div>
-
     </div>
 
-    <!-- Firebase SDK -->
+    <!-- RECOVERY MODAL -->
+    <div id="recoveryModal"
+        class="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 p-6 hidden flex flex-col items-center justify-center">
+        <div class="glass-card w-full max-w-sm p-6 relative">
+            <button onclick="hideRecovery()" class="absolute top-4 right-4 text-xl">&times;</button>
+
+            <!-- Step 1: Email -->
+            <div id="recStep1" class="w-full text-center">
+                <h3 class="text-xl font-bold mb-2">Recovery 🚑</h3>
+                <p class="text-sm text-gray-500 mb-4">Enter your registered email to receive an OTP.</p>
+                <input type="email" id="recEmail" placeholder="admin@example.com"
+                    class="w-full px-4 py-3 mb-3 rounded-xl border bg-gray-50">
+                <button onclick="sendOTP()" id="btnSendOtp"
+                    class="w-full bg-gray-800 text-white py-3 rounded-xl font-bold">Send Code</button>
+            </div>
+
+            <!-- Step 2: OTP -->
+            <div id="recStep2" class="w-full text-center hidden">
+                <h3 class="text-xl font-bold mb-2">Verify OTP 🔢</h3>
+                <p class="text-sm text-gray-500 mb-4">Check your email for the code.</p>
+                <input type="text" id="recOtp" placeholder="6-digit Code"
+                    class="w-full px-4 py-3 mb-3 rounded-xl border bg-gray-50 text-center tracking-widest text-xl">
+                <button onclick="verifyOTP()"
+                    class="w-full bg-green-500 text-white py-3 rounded-xl font-bold">Verify</button>
+            </div>
+
+            <!-- Step 3: New Pass -->
+            <div id="recStep3" class="w-full text-center hidden">
+                <h3 class="text-xl font-bold mb-2">Reset Credentials 🔐</h3>
+                <input type="text" id="newAdminUser" placeholder="New Username"
+                    class="w-full px-4 py-3 mb-3 rounded-xl border bg-gray-50">
+                <input type="text" id="newAdminPass" placeholder="New Password"
+                    class="w-full px-4 py-3 mb-3 rounded-xl border bg-gray-50">
+                <button onclick="saveNewCreds()" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold">Save
+                    & Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase & Config -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script src="script.js"></script>
 
     <script>
-        // Initial Seed Data (Same as before)
-        const INITIAL_PINS = {
-            'pg_sai_student': '1234',
-            'pg_stanza_living': '1234',
-            'pg_sunrise_girls': '1234',
-            'pg_1bhk_student_flat': '1234',
-            'pg_arnav_boys': '1234',
-            'pg_praacchi_borkarr': '1234',
-            'pg_subhadra_girls': '1234',
-            'pg_jhala_simplicity': '1234',
-            'pg_meheriya_residency': '1234',
-            'pg_magarpatta_city': '1234',
-            'pg_amanora_boys': '1234',
-            'pg_undri_hub': '1234',
-            'pg_indira_girls': '1234'
-        };
+        // --- EMAILJS CONFIGURATION (USER MUST FILL THIS) ---
+        const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+        const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+        const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
 
+        (function () {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+        })();
+
+        let generatedOTP = null;
         let currentPropId = null;
 
-        function handleLogin(e) {
+        // --- TABS ---
+        function switchTab(tab) {
+            document.getElementById('partnerView').classList.toggle('hidden', tab !== 'partner');
+            document.getElementById('adminView').classList.toggle('hidden', tab !== 'admin');
+            document.getElementById('tabPartner').className = tab === 'partner' ? 'text-lg font-bold pb-2 tab-active transition' : 'text-lg font-bold pb-2 tab-inactive transition';
+            document.getElementById('tabAdmin').className = tab === 'admin' ? 'text-lg font-bold pb-2 tab-active transition' : 'text-lg font-bold pb-2 tab-inactive transition';
+        }
+
+        // --- PARTNER LOGIN ---
+        function handlePartnerLogin(e) {
             e.preventDefault();
             const id = document.getElementById('propId').value.trim();
             const pin = document.getElementById('pin').value.trim();
             const btn = e.target.querySelector('button');
 
-            if (!id || !pin) return;
-
-            btn.innerText = "Verifying...";
+            const db = firebase.database();
+            btn.innerText = "Checking...";
             btn.disabled = true;
 
-            const db = firebase.database();
-
-            db.ref('listings_data/' + id).once('value').then(snapshot => {
-                const data = snapshot.val();
+            db.ref('listings_data/' + id).once('value').then(snap => {
+                const data = snap.val();
                 let storedPin = data ? data.pin : null;
 
-                // Auto-seed
-                if (!storedPin && INITIAL_PINS[id]) {
-                    storedPin = INITIAL_PINS[id];
-                    db.ref('listings_data/' + id).update({ pin: storedPin, status: 'available' });
+                // Auto Seed for Demo
+                if (!storedPin && pin === '1234') {
+                    storedPin = '1234';
+                    db.ref('listings_data/' + id).update({ pin: '1234', status: 'available' });
                 }
 
                 if (storedPin === pin) {
                     loginSuccess(id, data);
                 } else {
-                    alert("Invalid Property ID or PIN! Try 1234.");
-                    btn.innerText = "Access Dashboard";
+                    alert('Invalid ID/PIN');
+                    btn.innerText = "Login";
                     btn.disabled = false;
                 }
-            }).catch(err => {
-                console.error(err);
-                alert("Connection Error");
             });
         }
 
         function loginSuccess(id, data) {
             currentPropId = id;
-            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('loginContainer').classList.add('hidden');
             document.getElementById('dashboardSection').classList.remove('hidden');
-
             document.getElementById('dashTitle').innerText = id.replace('pg_', '').replace(/_/g, ' ').toUpperCase();
-
-            const status = data ? data.status : 'available';
-            updateUI(status);
+            updateUI(data ? data.status : 'available');
         }
 
         function setStatus(status) {
@@ -198,40 +256,94 @@
             updateUI(status);
         }
 
-        function changePin(e) {
-            e.preventDefault();
-            const newPin = document.getElementById('newPin').value.trim();
-            if (!newPin || newPin.length < 4) {
-                alert("Password must be at least 4 characters.");
-                return;
-            }
-            if (!currentPropId) return;
-
-            firebase.database().ref('listings_data/' + currentPropId).update({ pin: newPin })
-                .then(() => {
-                    const msg = document.getElementById('pinMsg');
-                    msg.style.opacity = '1';
-                    document.getElementById('newPin').value = '';
-                    setTimeout(() => msg.style.opacity = '0', 2000);
-                });
-        }
-
         function updateUI(status) {
             const ind = document.getElementById('statusIndicator');
             const txt = document.getElementById('statusText');
-
             if (status === 'full') {
-                ind.innerText = '🔴';
-                txt.innerText = 'Full / No Vacancy';
-                txt.className = 'font-bold text-xl text-red-600';
+                ind.innerText = '🔴'; txt.innerText = 'Full / No Vacancy'; txt.className = 'font-bold text-xl text-red-600';
             } else {
-                ind.innerText = '🟢';
-                txt.innerText = 'Available';
-                txt.className = 'font-bold text-xl text-green-600';
+                ind.innerText = '🟢'; txt.innerText = 'Available'; txt.className = 'font-bold text-xl text-green-600';
             }
         }
 
+        function changePin(e) {
+            e.preventDefault();
+            const newPin = document.getElementById('newPin').value.trim();
+            if (newPin.length < 4) { alert("Too short!"); return; }
+            firebase.database().ref('listings_data/' + currentPropId).update({ pin: newPin })
+                .then(() => {
+                    const msg = document.getElementById('pinMsg');
+                    msg.style.opacity = '1'; setTimeout(() => msg.style.opacity = '0', 2000);
+                });
+        }
+
         function logout() { location.reload(); }
+
+        // --- ADMIN LOGIN ---
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('adminUser').value.trim();
+            const pass = document.getElementById('adminPass').value.trim();
+
+            const db = firebase.database();
+            db.ref('admin_creds').once('value').then(snap => {
+                let creds = snap.val();
+                if (!creds) { creds = { username: 'admin', password: '123', email: 'admin@hostelite.com' }; db.ref('admin_creds').set(creds); }
+
+                if (user === creds.username && pass === creds.password) {
+                    sessionStorage.setItem('isAdmin', 'true');
+                    window.location.href = 'admin.html';
+                } else {
+                    alert('Invalid Credentials');
+                }
+            });
+        }
+
+        // --- RECOVERY FLOW ---
+        function showRecovery() { document.getElementById('recoveryModal').classList.remove('hidden'); }
+        function hideRecovery() { document.getElementById('recoveryModal').classList.add('hidden'); }
+
+        function sendOTP() {
+            const email = document.getElementById('recEmail').value.trim();
+            const btn = document.getElementById('btnSendOtp');
+
+            const db = firebase.database();
+            db.ref('admin_creds').once('value').then(snap => {
+                const creds = snap.val();
+                if (!creds || creds.email !== email) {
+                    alert('Email not registered! (Default is admin@hostelite.com)');
+                    return;
+                }
+
+                generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+                btn.innerText = "Sending...";
+
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { to_email: email, otp: generatedOTP })
+                    .then(function () {
+                        alert('OTP Sent to ' + email);
+                        document.getElementById('recStep1').classList.add('hidden');
+                        document.getElementById('recStep2').classList.remove('hidden');
+                    }, function (error) {
+                        alert('Failed! Configure EmailJS Keys in partner.html first.');
+                        console.log(error);
+                        btn.innerText = "Send Code";
+                    });
+            });
+        }
+
+        function verifyOTP() {
+            if (document.getElementById('recOtp').value.trim() === generatedOTP) {
+                document.getElementById('recStep2').classList.add('hidden');
+                document.getElementById('recStep3').classList.remove('hidden');
+            } else { alert('Invalid Code'); }
+        }
+
+        function saveNewCreds() {
+            const newUser = document.getElementById('newAdminUser').value.trim();
+            const newPass = document.getElementById('newAdminPass').value.trim();
+            firebase.database().ref('admin_creds').update({ username: newUser, password: newPass })
+                .then(() => { alert('Success! Please Login.'); hideRecovery(); });
+        }
     </script>
 </body>
 
