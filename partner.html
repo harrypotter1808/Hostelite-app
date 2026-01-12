@@ -310,8 +310,13 @@
             const db = firebase.database();
             db.ref('admin_creds').once('value').then(snap => {
                 const creds = snap.val();
-                if (!creds || creds.email !== email) {
-                    alert('Email not registered! (Default is admin@hostelite.com)');
+                if (!creds) {
+                    // First time run? Auto-set the email they entered as the admin email!
+                    creds = { username: 'admin', password: '123', email: email };
+                    db.ref('admin_creds').set(creds);
+                    alert('First time setup: Your email has been registered as the Admin Recovery Email.');
+                } else if (creds.email !== email) {
+                    alert('Email mismatch! The confirmed Admin email is: ' + creds.email);
                     return;
                 }
 
@@ -324,7 +329,7 @@
                         document.getElementById('recStep1').classList.add('hidden');
                         document.getElementById('recStep2').classList.remove('hidden');
                     }, function (error) {
-                        alert('Failed! Configure EmailJS Keys in partner.html first.');
+                        alert('Failed! Check EmailJS Keys or Console.');
                         console.log(error);
                         btn.innerText = "Send Code";
                     });
