@@ -334,7 +334,7 @@
                         document.getElementById('recStep1').classList.add('hidden');
                         document.getElementById('recStep2').classList.remove('hidden');
                     }, function (error) {
-                        alert('Failed! Check EmailJS Keys or Console.');
+                        alert('EmailJS Error: ' + JSON.stringify(error));
                         console.log(error);
                         btn.innerText = "Send Code";
                     });
