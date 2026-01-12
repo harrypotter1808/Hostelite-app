@@ -309,7 +309,7 @@
 
             const db = firebase.database();
             db.ref('admin_creds').once('value').then(snap => {
-                const creds = snap.val();
+                let creds = snap.val();
                 if (!creds) {
                     // Start fresh
                     creds = { username: 'admin', password: '123', email: email };
