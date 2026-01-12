@@ -131,39 +131,88 @@
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        async function loadData() {
-            try {
-                // Fetch Roommate Requests
-                db.ref('requests').on('value', (snapshot) => {
-                    const data = snapshot.val();
-                    const tbody = document.getElementById('roommate-table');
-                    tbody.innerHTML = '';
+        function loadData() {
+            // 1. Load Roommate Requests
+            db.ref('requests').on('value', (snapshot) => {
+                const data = snapshot.val();
+                const tbody = document.getElementById('roommate-table');
+                tbody.innerHTML = '';
 
-                    if (data) {
-                        // Convert object to array and sort by latest
-                        const sorted = Object.keys(data).map(key => data[key]).sort((a, b) => b.timestamp - a.timestamp);
-                        sorted.forEach(req => {
-                            const tr = document.createElement('tr');
-                            tr.innerHTML = `
-                                <td>${new Date(req.timestamp).toLocaleString()}</td>
-                                <td><strong>${req.name}</strong></td>
-                                <td>${req.contact}</td>
-                                <td><span class="badge">${req.type}</span></td>
-                                <td>${req.requirements || '-'}</td>
-                            `;
-                            tbody.appendChild(tr);
-                        });
-                    } else {
-                        tbody.innerHTML = '<tr><td colspan="5">No requests yet.</td></tr>';
-                    }
-                });
+                if (data) {
+                    // Convert object to array and sort by latest
+                    const sorted = Object.keys(data).map(key => data[key]).sort((a, b) => b.timestamp - a.timestamp);
+                    sorted.forEach(req => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${new Date(req.timestamp).toLocaleString()}</td>
+                            <td><strong>${req.name}</strong></td>
+                            <td>${req.contact}</td>
+                            <td><span class="badge">${req.type}</span></td>
+                            <td>${req.requirements || '-'}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5">No requests yet.</td></tr>';
+                }
+            });
 
+            // 2. Load Properties (New)
+            loadProperties();
+        }
 
+        function loadProperties() {
+            const db = firebase.database();
+            const propBody = document.getElementById('propTableBody');
 
-            } catch (error) {
-                console.error('Error loading data:', error);
-                alert('Firebase Error: check if you enabled Realtime Database in console.');
-            }
+            db.ref('listings_data').on('value', (snapshot) => {
+                const data = snapshot.val();
+                propBody.innerHTML = '';
+
+                if (data) {
+                    Object.keys(data).forEach(Key => {
+                        const item = data[Key];
+                        const statusColor = item.status === 'full' ? 'red' : 'green';
+
+                        const row = `
+                            <tr>
+                                <td style="font-weight:bold; color:#6c5ce7;">${Key}</td>
+                                <td>
+                                    <select id="status_${Key}" style="padding:5px; border-radius:4px; border:1px solid #ddd;">
+                                        <option value="available" ${item.status === 'available' ? 'selected' : ''}>Available 🟢</option>
+                                        <option value="full" ${item.status === 'full' ? 'selected' : ''}>Full 🔴</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" id="pin_${Key}" value="${item.pin || ''}" 
+                                        style="padding:5px; width:80px; border-radius:4px; border:1px solid #ddd;">
+                                </td>
+                                <td>
+                                    <button onclick="saveProperty('${Key}')" 
+                                        class="refresh-btn" style="padding: 0.4rem 1rem; font-size: 0.8rem;">
+                                        Save
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        propBody.innerHTML += row;
+                    });
+                } else {
+                    propBody.innerHTML = '<tr><td colspan="4">No active properties found in Database yet. (Login via Partner Portal to initialize them)</td></tr>';
+                }
+            });
+        }
+
+        function saveProperty(key) {
+            const status = document.getElementById(`status_${key}`).value;
+            const pin = document.getElementById(`pin_${key}`).value;
+
+            firebase.database().ref('listings_data/' + key).update({
+                status: status,
+                pin: pin
+            }).then(() => {
+                alert('Updated ' + key);
+            });
         }
 
         window.onload = loadData;
