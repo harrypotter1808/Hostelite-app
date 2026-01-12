@@ -1031,3 +1031,14 @@ footer {
     outline: none;
     border-color: var(--primary-color);
 }
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #f1f2f6;
+    color: #636e72;
+    margin-top: auto;
+    font-size: 0.9rem;
+    width: 100%;
+    border-top: 1px solid #dfe6e9;
+}
