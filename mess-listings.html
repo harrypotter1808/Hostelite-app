@@ -408,7 +408,11 @@
             document.getElementById('modalImg').src = imgSrc;
 
             document.getElementById('modalLocation').innerText = data.location;
-            document.getElementById('modalMapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.location)}`;
+            if (data.mapLink) {
+                document.getElementById('modalMapLink').href = data.mapLink;
+            } else {
+                document.getElementById('modalMapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.location)}`;
+            }
 
             document.getElementById('modalContact').innerText = data.contact;
             document.getElementById('modalCuisine').innerText = data.cuisine;
