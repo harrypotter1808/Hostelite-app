@@ -523,10 +523,15 @@
             document.getElementById('modalLocation').innerText = data.location;
 
             // Map Link Logic
+            // Map Link Logic
+            const mapLinkEl = document.getElementById('modalMapLink');
             if (data.mapLink) {
-                document.getElementById('modalMapLink').href = data.mapLink;
+                mapLinkEl.href = data.mapLink;
+                mapLinkEl.onclick = (e) => { e.preventDefault(); window.open(data.mapLink, '_blank'); };
             } else {
-                document.getElementById('modalMapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.location)}`;
+                const searchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.location)}`;
+                mapLinkEl.href = searchUrl;
+                mapLinkEl.onclick = (e) => { e.preventDefault(); window.open(searchUrl, '_blank'); };
             }
 
             document.getElementById('modalContact').innerText = data.contact;

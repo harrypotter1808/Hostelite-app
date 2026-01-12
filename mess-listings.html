@@ -417,8 +417,11 @@
             document.getElementById('modalLocation').innerText = data.location;
             if (data.mapLink) {
                 document.getElementById('modalMapLink').href = data.mapLink;
+                document.getElementById('modalMapLink').onclick = (e) => { e.preventDefault(); window.open(data.mapLink, '_blank'); };
             } else {
-                document.getElementById('modalMapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.location)}`;
+                const searchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.location)}`;
+                document.getElementById('modalMapLink').href = searchUrl;
+                document.getElementById('modalMapLink').onclick = (e) => { e.preventDefault(); window.open(searchUrl, '_blank'); };
             }
 
             document.getElementById('modalContact').innerText = data.contact;
