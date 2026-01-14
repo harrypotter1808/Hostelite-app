@@ -325,30 +325,64 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function getAIResponse(input) {
-            // Simple Keyword Matching Intent
-            if (input.includes('hello') || input.includes('hi')) return "Hey there! 👋 I can help you find PGs, Messes, or Flatmates. Try asking 'Best mess nearby' or 'Cheap PG'.";
+            input = input.toLowerCase();
 
-            if (input.includes('mess') || input.includes('food') || input.includes('tiffin')) {
-                if (input.includes('cheap') || input.includes('budget')) return "For budget food, I recommend **Mahakal Mess** (₹50/meal) or **South Indian Amma** (₹100/meal).";
-                if (input.includes('healthy')) return "**Tiffit** is great for healthy, low-oil meals!";
-                return "We have great Mess options! Check out **Annapurna Mess** for unlimited thali or **Radhakrishna** for premium dining.";
+            // 1. Basic Greetings
+            if (input.match(/^(hi|hello|hey|greetings)/)) {
+                return "Hey! 👋 I can help you find PGs, Messes, or Flatmates. Try asking 'Best mess under 3000' or 'Girls PG in Handewadi'.";
             }
 
-            if (input.includes('pg') || input.includes('hostel') || input.includes('room')) {
-                if (input.includes('girl')) return "Top picks for girls: **Sunrise Girls Residency** and **Subhadra Hostel**. Both are very safe!";
-                if (input.includes('boy')) return "For boys, check out **Sai Student Hostel** (Budget) or **Amanora Boys Hostel** (Premium).";
-                if (input.includes('cheap') || input.includes('budget')) return "**Arnav Boys PG** starts at just ₹2,500/mo. It's the cheapest option!";
-                return "We have 15+ PGs listed. Are you looking for a 'boys', 'girls', or 'co-ed' PG?";
+            // 2. Dynamic Data Search
+            // Reuse the searchData array available in this scope
+            let matches = searchData.filter(item => {
+                const text = (item.title + ' ' + item.keywords + ' ' + item.type + ' ' + item.price).toLowerCase();
+
+                // Simple keyword matching
+                // If user asks "girls pg", we need both "girls" and "pg" or just "girls" if strict.
+                // Let's check if significant words from input exist in the item
+                const userKeywords = input.replace(/(find|me|a|the|show|list|best|top|near|in|pune|handewadi|please)/g, '').split(/\s+/).filter(w => w.length > 2);
+
+                // If no keywords left, don't match random stuff
+                if (userKeywords.length === 0) return false;
+
+                // Check matches (require at least one strong keyword match)
+                const hasMatch = userKeywords.some(kw => text.includes(kw));
+
+                // Price Check (simple "under X" logic)
+                const priceMatch = input.match(/under\s*(\d+)/);
+                if (priceMatch) {
+                    const limit = parseInt(priceMatch[1]) * (input.includes('k') ? 1000 : 1);
+                    const itemPrice = parseInt(item.price.replace(/[^\d]/g, ''));
+                    return hasMatch && itemPrice <= limit;
+                }
+
+                return hasMatch;
+            });
+
+            if (matches.length > 0) {
+                // Sort by price if "cheap" is asked
+                if (input.includes('cheap') || input.includes('budget')) {
+                    matches.sort((a, b) => parseInt(a.price.replace(/[^\d]/g, '')) - parseInt(b.price.replace(/[^\d]/g, '')));
+                }
+
+                const names = matches.slice(0, 3).map(m => `**${m.title}** (${m.price})`).join(', ');
+                let msg = `Found ${matches.length} matches! Here are the top ones:\n\n${names}`;
+                if (matches.length > 3) msg += `\n\n...and ${matches.length - 3} more. Check the search page!`;
+                return msg;
             }
 
-            if (input.includes('flat') || input.includes('apartment')) return "Looking for privacy? Check out **Meheriya Residency** (1BHK) or **Jhala Simplicity** (Luxury).";
+            // 3. Fallback for specific categories if data search failed
+            if (input.includes('mess') || input.includes('food')) {
+                return "We have great Mess options like **Annapurna Mess** and **Radhakrishna**. Try searching for 'veg mess' or 'tiffin'.";
+            }
+            if (input.includes('pg') || input.includes('hostel')) {
+                return "I couldn't find a specific PG matching that. Try 'Boys PG', 'Girls PG' or 'Flat'.";
+            }
 
-            if (input.includes('gym')) return "**Stanza Living** and **Undri Student Hub** both have in-house gyms! 💪";
-
-            // Fallback to Global Maps Search
+            // 4. Global Fallback
             const mapQuery = encodeURIComponent(input + ' near Handewadi Pune');
             const mapUrl = `https://www.google.com/maps/search/${mapQuery}`;
-            return `I checked my list but didn't find specific matches. \n\nHere is a live map search for it: ${mapUrl}`;
+            return `I checked our active listings but found nothing specific. \n\nTry a broader Google Maps search: ${mapUrl}`;
         }
     }
 
