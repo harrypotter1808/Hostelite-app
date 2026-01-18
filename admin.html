@@ -14,14 +14,15 @@
             background: #f8f9fa;
             color: #2d3436;
         }
-
-        <script> // Auth Guard
-
-        if ( !sessionStorage.getItem('isAdmin')) {
-            window.location.href='partner.html';
+    </style>
+    <script>
+        // Auth Guard
+        if (!sessionStorage.getItem('isAdmin')) {
+            window.location.href = 'partner.html';
         }
-
-        </script><style>h1 {
+    </script>
+    <style>
+        h1 {
             color: #6c5ce7;
             margin-bottom: 2rem;
         }
@@ -110,6 +111,26 @@
             <tbody id="roommate-table">
                 <tr>
                     <td colspan="5">Loading...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Property Management (Super Admin) -->
+    <div class="section">
+        <h2>🏠 Property Management & PINs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property ID</th>
+                    <th>Status</th>
+                    <th>Password / PIN</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="propTableBody">
+                <tr>
+                    <td colspan="4">Loading Properties...</td>
                 </tr>
             </tbody>
         </table>
