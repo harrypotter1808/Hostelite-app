@@ -197,18 +197,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Filter Data
                     const results = searchData.filter(item => {
-                        const searchableText = `${item.title} ${item.keywords} ${item.type}`.toLowerCase();
-                        const cleanQuery = query.replace(/under\s*\d+k?/i, '').trim();
+                        const searchableText = `${item.title} ${item.keywords} ${item.type} ${item.price}`.toLowerCase();
 
-                        // Tokenize query: Split by space and check if ALL tokens exist in text
-                        const tokens = cleanQuery.split(/\s+/).filter(Boolean);
-                        const matchesText = tokens.every(token => searchableText.includes(token));
+                        // 1. Clean Query: Remove "under X", "near me", stop words
+                        let cleanQuery = query
+                            .replace(/under\s*\d+k?/i, '')
+                            .replace(/(near me|nearby|in pune|handewadi|find|search|show|best|top)/g, '')
+                            .trim();
+
+                        // If query becomes empty (e.g. just "near me"), show everything or specific types
+                        if (!cleanQuery) return true;
+
+                        // 2. Tokenize
+                        const tokens = cleanQuery.split(/\s+/).filter(t => t.length > 1);
+
+                        // 3. Smart Match: 
+                        // - If strict match fail, try partial. 
+                        // - "pg" should search for "pg" OR "hostel"
+
+                        const isMatch = tokens.every(token => {
+                            if (token === 'pg') return searchableText.includes('pg') || searchableText.includes('hostel');
+                            if (token === 'mess') return searchableText.includes('mess') || searchableText.includes('food');
+                            return searchableText.includes(token);
+                        });
 
                         // Price Check
                         const itemPrice = parseInt(item.price.replace(/[^\d]/g, ''));
                         const matchesPrice = itemPrice <= priceLimit;
 
-                        return matchesText && matchesPrice;
+                        return isMatch && matchesPrice;
                     });
 
                     // Generate HTML
