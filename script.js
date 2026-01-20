@@ -403,6 +403,72 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- Dynamic Listings Loader ---
+    window.loadListingsData = () => {
+        const db = firebase.database();
+        if (!db) return;
+
+        db.ref('listings_data').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (!data) return;
+
+            document.querySelectorAll('.listing-card').forEach(card => {
+                const id = card.getAttribute('data-id');
+                const info = data[id];
+
+                if (info) {
+                    // 1. Status Badge
+                    const badge = card.querySelector('.status-badge');
+                    if (badge) {
+                        if (info.status === 'full') {
+                            badge.innerText = 'Full 🔴';
+                            badge.style.background = '#d63031';
+                        } else {
+                            badge.innerText = 'Available 🟢';
+                            badge.style.background = '#00b894';
+                        }
+                    }
+
+                    // 2. Image
+                    const img = card.querySelector('.listing-img');
+                    if (img && info.image) {
+                        img.src = info.image;
+                    }
+
+                    // 3. Features
+                    const badgesContainer = card.querySelector('.badges');
+                    if (badgesContainer && info.features) {
+                        badgesContainer.innerHTML = ''; // Clear static
+                        info.features.forEach(feat => {
+                            const span = document.createElement('span');
+                            span.className = 'badge';
+                            span.innerText = feat;
+                            badgesContainer.appendChild(span);
+                        });
+                    }
+
+                    // 4. Description (Append if not exists)
+                    let descEl = card.querySelector('.dynamic-desc');
+                    if (info.description) {
+                        if (!descEl) {
+                            descEl = document.createElement('p');
+                            descEl.className = 'dynamic-desc';
+                            descEl.style.fontSize = '0.9rem';
+                            descEl.style.color = '#636e72';
+                            descEl.style.marginTop = '0.5rem';
+                            // Insert before price
+                            const priceEl = card.querySelector('.listing-price');
+                            if (priceEl) priceEl.parentNode.insertBefore(descEl, priceEl);
+                        }
+                        descEl.innerText = info.description;
+                    }
+                }
+            });
+        });
+    };
+    // Auto-load on page start
+    loadListingsData();
+
     // Visitor Logging (Realtime Database)
 
 
