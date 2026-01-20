@@ -661,28 +661,3 @@
 </body>
 
 </html>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const dbRef = firebase.database().ref('listings_data');
-        dbRef.on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                Object.keys(data).forEach(key => {
-                    const status = data[key].status;
-                    const card = document.querySelector(`.listing-card[data-id="${key}"]`);
-                    if (card) {
-                        const badge = card.querySelector('.status-badge');
-                        if (status === 'full') {
-                            badge.innerHTML = 'Full 🔴';
-                            badge.style.background = '#d63031';
-                        } else {
-                            badge.innerHTML = 'Available 🟢';
-                            badge.style.background = '#00b894';
-                        }
-                    }
-                });
-            }
-        });
-    });
-</script>
