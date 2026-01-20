@@ -91,6 +91,7 @@
                 target="_blank" class="refresh-btn" style="background: #2d3436; text-decoration: none;">
                 Manage Database 🛠️
             </a>
+            <button class="refresh-btn" onclick="initDB()" style="background: #e17055;">Initialize DB 🚀</button>
             <button class="refresh-btn" onclick="loadData()">Refresh Data 🔄</button>
         </div>
     </div>
@@ -247,6 +248,34 @@
             }).then(() => {
             }).then(() => {
                 alert('Updated ' + key);
+            });
+        }
+
+        function initDB() {
+            if (!confirm("Create default entries for PGs? (Click OK if table is empty)")) return;
+
+            const defaults = {
+                "pg_sai_student": { pin: "1234", status: "available", phone: "" },
+                "pg_stanza_living": { pin: "1234", status: "available", phone: "" },
+                "pg_sunrise_girls": { pin: "1234", status: "available", phone: "" },
+                "pg_1bhk_student_flat": { pin: "1234", status: "available", phone: "" },
+                "pg_arnav_boys": { pin: "1234", status: "available", phone: "" },
+                "pg_subhadra_girls": { pin: "1234", status: "available", phone: "" },
+                "pg_jhala_simplicity": { pin: "1234", status: "available", phone: "" },
+                "pg_magarpatta_city": { pin: "1234", status: "available", phone: "" },
+                "pg_amanora_boys": { pin: "1234", status: "available", phone: "" },
+                "pg_undri_student_hub": { pin: "1234", status: "available", phone: "" },
+                "pg_indira_girls": { pin: "1234", status: "available", phone: "" },
+                "pg_meheriya_residency": { pin: "1234", status: "available", phone: "" }
+            };
+
+            firebase.database().ref('listings_data').update(defaults, (error) => {
+                if (error) alert("Error: " + error);
+                else {
+                    alert("Database Initialized! You can now add Phone Numbers.");
+                    // Refresh explicitly
+                    loadProperties();
+                }
             });
         }
 
