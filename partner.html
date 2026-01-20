@@ -47,17 +47,18 @@
         <!-- PARTNER LOGIN FORM -->
         <div id="partnerView">
             <div class="text-center mb-6">
-                <h2 class="text-xl font-bold">Property Owner</h2>
+                <h2 class="text-xl font-bold">Partner Login 🏡</h2>
             </div>
             <form onsubmit="handlePartnerLogin(event)" class="space-y-4">
-                <input type="text" id="propId" placeholder="Property ID"
+                <input type="tel" id="propId" placeholder="Registered Mobile No"
                     class="w-full px-4 py-3 rounded-xl border bg-gray-50 outline-none focus:ring-2 focus:ring-indigo-100"
                     required>
                 <input type="password" id="pin" placeholder="PIN"
                     class="w-full px-4 py-3 rounded-xl border bg-gray-50 outline-none focus:ring-2 focus:ring-indigo-100"
                     required>
                 <button type="submit"
-                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition">Login</button>
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition">Secure
+                    Login</button>
             </form>
         </div>
 
@@ -211,34 +212,56 @@
             document.getElementById('tabAdmin').className = tab === 'admin' ? 'text-lg font-bold pb-2 tab-active transition' : 'text-lg font-bold pb-2 tab-inactive transition';
         }
 
-        // --- PARTNER LOGIN ---
+        // --- PARTNER LOGIN (By Phone Number) ---
         function handlePartnerLogin(e) {
             e.preventDefault();
-            const id = document.getElementById('propId').value.trim();
-            const pin = document.getElementById('pin').value.trim();
+            const phoneInput = document.getElementById('propId').value.trim(); // Now acting as Phone Input
+            const pinInput = document.getElementById('pin').value.trim();
             const btn = e.target.querySelector('button');
 
             const db = firebase.database();
-            btn.innerText = "Checking...";
+            btn.innerText = "Verifying...";
             btn.disabled = true;
 
-            db.ref('listings_data/' + id).once('value').then(snap => {
-                const data = snap.val();
-                let storedPin = data ? data.pin : null;
+            // Fetch ALL listings to find matches by phone
+            db.ref('listings_data').once('value').then(snap => {
+                const allListings = snap.val();
+                let foundKey = null;
+                let foundData = null;
 
-                // Auto Seed for Demo
-                if (!storedPin && pin === '1234') {
-                    storedPin = '1234';
-                    db.ref('listings_data/' + id).update({ pin: '1234', status: 'available' });
+                if (allListings) {
+                    // Iterate to find by phone
+                    const keys = Object.keys(allListings);
+                    for (let key of keys) {
+                        const listing = allListings[key];
+                        // Weak match (just in case) or exact match
+                        if (listing.phone && listing.phone === phoneInput) {
+                            foundKey = key;
+                            foundData = listing;
+                            break;
+                        }
+                    }
                 }
 
-                if (storedPin === pin) {
-                    loginSuccess(id, data);
+                if (foundKey) {
+                    // Check PIN
+                    if (foundData.pin === pinInput) {
+                        loginSuccess(foundKey, foundData);
+                    } else {
+                        alert('Incorrect PIN for this Mobile Number.');
+                        btn.innerText = "Secure Login";
+                        btn.disabled = false;
+                    }
                 } else {
-                    alert('Invalid ID/PIN');
-                    btn.innerText = "Login";
+                    alert('Mobile Number not found in Partner Database. Please contact Admin.');
+                    btn.innerText = "Secure Login";
                     btn.disabled = false;
                 }
+            }).catch(err => {
+                console.error(err);
+                alert("Network/Database Error");
+                btn.innerText = "Secure Login";
+                btn.disabled = false;
             });
         }
 

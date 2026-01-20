@@ -124,6 +124,7 @@
                 <tr>
                     <th>Property ID</th>
                     <th>Status</th>
+                    <th>Owner Phone 📱</th>
                     <th>Password / PIN</th>
                     <th>Action</th>
                 </tr>
@@ -211,6 +212,10 @@
                                     </select>
                                 </td>
                                 <td>
+                                    <input type="text" id="phone_${Key}" value="${item.phone || ''}" placeholder="Phone No"
+                                        style="padding:5px; width:110px; border-radius:4px; border:1px solid #ddd;">
+                                </td>
+                                <td>
                                     <input type="text" id="pin_${Key}" value="${item.pin || ''}" 
                                         style="padding:5px; width:80px; border-radius:4px; border:1px solid #ddd;">
                                 </td>
@@ -233,10 +238,13 @@
         function saveProperty(key) {
             const status = document.getElementById(`status_${key}`).value;
             const pin = document.getElementById(`pin_${key}`).value;
+            const phone = document.getElementById(`phone_${key}`).value;
 
             firebase.database().ref('listings_data/' + key).update({
                 status: status,
-                pin: pin
+                pin: pin,
+                phone: phone
+            }).then(() => {
             }).then(() => {
                 alert('Updated ' + key);
             });
