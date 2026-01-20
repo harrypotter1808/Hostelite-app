@@ -356,6 +356,10 @@
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
             <img src="" alt="Property" class="modal-img" id="modalImg">
+
+            <!-- Gallery Grid -->
+            <div id="modalGallery" class="grid grid-cols-3 gap-2 p-4 hidden"></div>
+
             <div class="modal-body">
                 <h2 class="modal-title" id="modalTitle">Title</h2>
                 <div class="modal-price" id="modalPrice">₹0/mo</div>
@@ -577,6 +581,25 @@
             document.getElementById('modalContact').innerText = data.contact;
             document.getElementById('modalAmenities').innerText = data.amenities;
             document.getElementById('modalDesc').innerText = data.desc;
+
+            // Gallery Logic
+            const gallery = document.getElementById('modalGallery');
+            gallery.innerHTML = '';
+            gallery.classList.add('hidden');
+
+            const cardId = card.getAttribute('data-id');
+            const realData = (window.listingsData && window.listingsData[cardId]) ? window.listingsData[cardId] : null;
+
+            if (realData && realData.images && realData.images.length > 0) {
+                gallery.classList.remove('hidden');
+                realData.images.forEach(imgSrc => {
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.className = 'w-full h-24 object-cover rounded-lg cursor-pointer border hover:border-indigo-500';
+                    img.onclick = () => document.getElementById('modalImg').src = imgSrc; // Swap main
+                    gallery.appendChild(img);
+                });
+            }
 
             // WhatsApp & Call Integration
             const cleanNumber = data.contact.replace(/[^\d]/g, '');

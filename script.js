@@ -411,6 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
         db.ref('listings_data').on('value', (snapshot) => {
             const data = snapshot.val();
             if (!data) return;
+            window.listingsData = data; // Expose for Modal logic
 
             document.querySelectorAll('.listing-card').forEach(card => {
                 const id = card.getAttribute('data-id');

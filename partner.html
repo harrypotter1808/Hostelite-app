@@ -193,13 +193,13 @@
                 </h3>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-600 mb-1">Property Photo 📸</label>
-                        <input type="file" id="propImgInput" accept="image/*"
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Property Photos 📸 (Select
+                            Multiple)</label>
+                        <input type="file" id="propImgInput" accept="image/*" multiple
                             class="mb-3 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
 
-                        <!-- Preview -->
-                        <img id="imgPreview" src="" alt="Preview"
-                            class="hidden w-full h-48 object-cover rounded-xl border border-gray-200 mb-2">
+                        <!-- Preview Grid -->
+                        <div id="previewContainer" class="grid grid-cols-3 gap-2 mb-2"></div>
                         <p class="text-xs text-gray-400">Max size 800px. Uploads directly from device.</p>
                     </div>
                     <div>
@@ -352,12 +352,27 @@
             });
 
             // Update Details
-            if (data && data.image) {
-                document.getElementById('imgPreview').src = data.image;
-                document.getElementById('imgPreview').classList.remove('hidden');
-            } else {
-                document.getElementById('imgPreview').classList.add('hidden');
+            // Handle Images (Array or String)
+            const container = document.getElementById('previewContainer');
+            container.innerHTML = ''; // Clear prev
+
+            let images = [];
+            if (data && data.images) {
+                images = data.images;
+            } else if (data && data.image) {
+                images = [data.image];
             }
+
+            if (images.length > 0) {
+                images.forEach(imgSrc => {
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.className = 'w-full h-24 object-cover rounded-lg border border-gray-200';
+                    container.appendChild(img);
+                });
+            }
+
+            document.getElementById('propDesc').value = data && data.description ? data.description : '';
             document.getElementById('propDesc').value = data && data.description ? data.description : '';
 
 
@@ -397,13 +412,23 @@
 
             let updates = { description: desc };
 
-            if (fileInput.files && fileInput.files[0]) {
-                const file = fileInput.files[0];
+            // Handle New Uploads
+            if (fileInput.files && fileInput.files.length > 0) {
                 try {
-                    const base64Img = await compressImage(file);
-                    updates.image = base64Img;
+                    const newImages = [];
+                    // Process all files
+                    for (let i = 0; i < fileInput.files.length; i++) {
+                        const base64 = await compressImage(fileInput.files[i]);
+                        newImages.push(base64);
+                    }
+                    // Overwrite images array
+                    updates.images = newImages;
+
+                    // Also update legacy 'image' field for backward compat
+                    if (newImages.length > 0) updates.image = newImages[0];
+
                 } catch (err) {
-                    alert("Error processing image: " + err);
+                    alert("Error processing images: " + err);
                     return;
                 }
             }
