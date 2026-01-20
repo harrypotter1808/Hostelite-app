@@ -184,29 +184,6 @@
         </div>
     </div>
 
-    <!-- Info & Media Card -->
-    <div class="glass-card p-6 mt-6">
-        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span>📝</span> Details & Photos
-        </h3>
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-600 mb-1">Main Photo Link (URL)</label>
-                <input type="url" id="propImg" placeholder="https://example.com/photo.jpg"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50">
-                <p class="text-xs text-gray-400 mt-1">Paste a direct link to your property image.</p>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-600 mb-1">Additional Info / Rules</label>
-                <textarea id="propDesc" rows="3" placeholder="e.g. strict gate timing, pure veg only, etc."
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50"></textarea>
-            </div>
-            <button onclick="saveDetails()"
-                class="w-full bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold py-3 rounded-xl transition">
-                Save Details
-            </button>
-        </div>
-    </div>
     </div>
 
     <!-- RECOVERY MODAL -->
@@ -375,18 +352,7 @@
                 .catch(e => alert('Error: ' + e));
         }
 
-        function saveDetails() {
-            if (!currentPropId) return;
-            const img = document.getElementById('propImg').value.trim();
-            const desc = document.getElementById('propDesc').value.trim();
 
-            firebase.database().ref('listings_data/' + currentPropId).update({
-                image: img,
-                description: desc
-            })
-                .then(() => alert('Details Saved! 📝'))
-                .catch(e => alert('Error: ' + e));
-        }
 
         function changePin(e) {
             e.preventDefault();
