@@ -200,7 +200,7 @@
 
                         <!-- Preview Grid -->
                         <div id="previewContainer" class="grid grid-cols-3 gap-2 mb-2"></div>
-                        <p class="text-xs text-gray-400">Max size 800px. Uploads directly from device.</p>
+                        <p class="text-xs text-gray-400">Max size 1200px (HD). Uploads directly from device.</p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Additional Info / Rules</label>
@@ -474,10 +474,10 @@
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
 
-                        // Resize logic (Max 800px width)
+                        // Resize logic (Max 1200px width)
                         let width = img.width;
                         let height = img.height;
-                        const MAX_WIDTH = 800;
+                        const MAX_WIDTH = 1200;
                         if (width > MAX_WIDTH) {
                             height *= MAX_WIDTH / width;
                             width = MAX_WIDTH;
