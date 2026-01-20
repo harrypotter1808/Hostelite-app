@@ -145,44 +145,43 @@
                 </p>
             </div>
         </div>
-    </div>
 
-    <!-- NEW: Edit Details Section -->
-    <div class="glass-card p-6 mt-6">
-        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span>✏️</span> Edit Property Details
-        </h3>
-        <form onsubmit="saveDetails(event)" class="space-y-4">
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-600 mb-1">Property Name</label>
-                    <input type="text" id="editTitle" class="w-full px-4 py-2 rounded-xl border bg-gray-50">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-600 mb-1">Price (e.g. ₹3,500/mo)</label>
-                    <input type="text" id="editPrice" class="w-full px-4 py-2 rounded-xl border bg-gray-50">
-                </div>
+        <!-- Features Card -->
+        <div class="glass-card p-6 mt-6">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span>✨</span> Property Features
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" value="WiFi" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                    <span>WiFi 📶</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" value="AC" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                    <span>AC ❄️</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" value="Food" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                    <span>Food 🍱</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" value="Gym" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                    <span>Gym 💪</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" value="CCTV" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                    <span>CCTV 📹</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" value="Cleaning" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                    <span>Cleaning 🧹</span>
+                </label>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-600 mb-1">Location</label>
-                <input type="text" id="editLocation" class="w-full px-4 py-2 rounded-xl border bg-gray-50">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-600 mb-1">Amenities (comma separated)</label>
-                <input type="text" id="editBadges" placeholder="WiFi, AC, Boys..."
-                    class="w-full px-4 py-2 rounded-xl border bg-gray-50">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-600 mb-1">Image URL</label>
-                <input type="text" id="editImage" placeholder="https://..."
-                    class="w-full px-4 py-2 rounded-xl border bg-gray-50">
-            </div>
-            <button type="submit"
-                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-xl transition">
-                Save Changes 💾
+            <button onclick="saveFeatures()"
+                class="w-full bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-bold py-3 rounded-xl transition">
+                Save Features
             </button>
-        </form>
-    </div>
+        </div>
     </div>
 
     <!-- RECOVERY MODAL -->
@@ -307,48 +306,23 @@
             currentPropId = id;
             document.getElementById('loginContainer').classList.add('hidden');
             document.getElementById('dashboardSection').classList.remove('hidden');
-            document.getElementById('dashTitle').innerText = data.title || id.replace('pg_', '').replace(/_/g, ' ').toUpperCase();
+            document.getElementById('dashTitle').innerText = id.replace('pg_', '').replace(/_/g, ' ').toUpperCase();
+            document.getElementById('dashTitle').innerText = id.replace('pg_', '').replace(/_/g, ' ').toUpperCase();
 
-            // Populate Edit Form
-            document.getElementById('editTitle').value = data.title || '';
-            document.getElementById('editPrice').value = data.price || '';
-            document.getElementById('editLocation').value = data.location || '';
-            document.getElementById('editBadges').value = data.badges || '';
-            document.getElementById('editImage').value = data.image || '';
-
+            // Update Status Badge
             updateUI(data ? data.status : 'available');
+
+            // Update Features Checkboxes
+            const savedFeatures = data && data.features ? data.features : [];
+            document.querySelectorAll('.feature-cb').forEach(cb => {
+                cb.checked = savedFeatures.includes(cb.value);
+            });
         }
 
         function setStatus(status) {
             if (!currentPropId) return;
             firebase.database().ref('listings_data/' + currentPropId).update({ status: status });
             updateUI(status);
-        }
-
-        function saveDetails(e) {
-            e.preventDefault();
-            if (!currentPropId) return;
-
-            const updates = {
-                title: document.getElementById('editTitle').value,
-                price: document.getElementById('editPrice').value,
-                location: document.getElementById('editLocation').value,
-                badges: document.getElementById('editBadges').value,
-                image: document.getElementById('editImage').value
-            };
-
-            const btn = e.target.querySelector('button');
-            const originalText = btn.innerText;
-            btn.innerText = "Saving...";
-
-            firebase.database().ref('listings_data/' + currentPropId).update(updates).then(() => {
-                alert("Details Updated Successfully! ✅");
-                btn.innerText = originalText;
-                document.getElementById('dashTitle').innerText = updates.title;
-            }).catch(err => {
-                alert("Error: " + err.message);
-                btn.innerText = originalText;
-            });
         }
 
         function updateUI(status) {
@@ -359,6 +333,17 @@
             } else {
                 ind.innerText = '🟢'; txt.innerText = 'Available'; txt.className = 'font-bold text-xl text-green-600';
             }
+        }
+
+        function saveFeatures() {
+            if (!currentPropId) return;
+            // Collect checked values
+            const selected = [];
+            document.querySelectorAll('.feature-cb:checked').forEach(cb => selected.push(cb.value));
+
+            firebase.database().ref('listings_data/' + currentPropId).update({ features: selected })
+                .then(() => alert('Features Saved! ✨'))
+                .catch(e => alert('Error: ' + e));
         }
 
         function changePin(e) {
