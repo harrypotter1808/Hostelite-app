@@ -146,69 +146,71 @@
             </div>
         </div>
 
-        <!-- Features Card -->
-        <div class="glass-card p-6 mt-6">
-            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <span>✨</span> Property Features
-            </h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" value="WiFi" class="feature-cb w-5 h-5 text-indigo-600 rounded">
-                    <span>WiFi 📶</span>
-                </label>
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" value="AC" class="feature-cb w-5 h-5 text-indigo-600 rounded">
-                    <span>AC ❄️</span>
-                </label>
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" value="Food" class="feature-cb w-5 h-5 text-indigo-600 rounded">
-                    <span>Food 🍱</span>
-                </label>
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" value="Gym" class="feature-cb w-5 h-5 text-indigo-600 rounded">
-                    <span>Gym 💪</span>
-                </label>
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" value="CCTV" class="feature-cb w-5 h-5 text-indigo-600 rounded">
-                    <span>CCTV 📹</span>
-                </label>
-                <label class="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" value="Cleaning" class="feature-cb w-5 h-5 text-indigo-600 rounded">
-                    <span>Cleaning 🧹</span>
-                </label>
-            </div>
-            <button onclick="saveFeatures()"
-                class="w-full bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-bold py-3 rounded-xl transition">
-                Save Features
-            </button>
-        </div>
-    </div>
+        <!-- Bottom Grid: Features & Details -->
+        <div class="grid md:grid-cols-2 gap-6 mt-6">
 
-    </div>
+            <!-- Features Card -->
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <span>✨</span> Property Features
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-2 gap-4 mb-4">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" value="WiFi" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                        <span>WiFi 📶</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" value="AC" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                        <span>AC ❄️</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" value="Food" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                        <span>Food 🍱</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" value="Gym" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                        <span>Gym 💪</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" value="CCTV" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                        <span>CCTV 📹</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" value="Cleaning" class="feature-cb w-5 h-5 text-indigo-600 rounded">
+                        <span>Cleaning 🧹</span>
+                    </label>
+                </div>
+                <button onclick="saveFeatures()"
+                    class="w-full bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-bold py-3 rounded-xl transition">
+                    Save Features
+                </button>
+            </div>
 
-    <!-- Info & Media Card -->
-    <div class="glass-card p-6 mt-6">
-        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span>📝</span> Details & Photos
-        </h3>
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-600 mb-1">Main Photo Link (URL)</label>
-                <input type="url" id="propImg" placeholder="https://example.com/photo.jpg"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50">
-                <p class="text-xs text-gray-400 mt-1">Paste a direct link to your property image.</p>
+            <!-- Info & Media Card -->
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <span>📝</span> Details & Photos
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Main Photo Link (URL)</label>
+                        <input type="url" id="propImg" placeholder="https://example.com/photo.jpg"
+                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50">
+                        <p class="text-xs text-gray-400 mt-1">Paste a direct link to your property image.</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Additional Info / Rules</label>
+                        <textarea id="propDesc" rows="3" placeholder="e.g. strict gate timing, pure veg only, etc."
+                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50"></textarea>
+                    </div>
+                    <button onclick="saveDetails()"
+                        class="w-full bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold py-3 rounded-xl transition">
+                        Save Details
+                    </button>
+                </div>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-600 mb-1">Additional Info / Rules</label>
-                <textarea id="propDesc" rows="3" placeholder="e.g. strict gate timing, pure veg only, etc."
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50"></textarea>
-            </div>
-            <button onclick="saveDetails()"
-                class="w-full bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold py-3 rounded-xl transition">
-                Save Details
-            </button>
+
         </div>
-    </div>
     </div>
 
     <!-- RECOVERY MODAL -->
