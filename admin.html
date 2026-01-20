@@ -252,28 +252,123 @@
         }
 
         function initDB() {
-            if (!confirm("Create default entries for PGs? (Click OK if table is empty)")) return;
+            if (!confirm("⚠️ RESET DATABASE?\n\nThis will clear current data and load the defaults with full details (Images, Prices, etc.).\n\nClick OK to proceed.")) return;
 
             const defaults = {
-                "pg_sai_student": { pin: "1234", status: "available", phone: "" },
-                "pg_stanza_living": { pin: "1234", status: "available", phone: "" },
-                "pg_sunrise_girls": { pin: "1234", status: "available", phone: "" },
-                "pg_1bhk_student_flat": { pin: "1234", status: "available", phone: "" },
-                "pg_arnav_boys": { pin: "1234", status: "available", phone: "" },
-                "pg_subhadra_girls": { pin: "1234", status: "available", phone: "" },
-                "pg_jhala_simplicity": { pin: "1234", status: "available", phone: "" },
-                "pg_magarpatta_city": { pin: "1234", status: "available", phone: "" },
-                "pg_amanora_boys": { pin: "1234", status: "available", phone: "" },
-                "pg_undri_student_hub": { pin: "1234", status: "available", phone: "" },
-                "pg_indira_girls": { pin: "1234", status: "available", phone: "" },
-                "pg_meheriya_residency": { pin: "1234", status: "available", phone: "" }
+                "pg_sai_student": {
+                    title: "Sai Student Hostel",
+                    price: "₹3,500/mo",
+                    image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80",
+                    badges: "Boys, WiFi, 2 Sharing",
+                    location: "Handewadi Road, Pune",
+                    commute: "⏱️ 2 min walk to College",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_stanza_living": {
+                    title: "Stanza Living (Handewadi)",
+                    price: "₹7,500/mo",
+                    image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=500&q=80",
+                    badges: "Co-ed, AC, Meals, Gym",
+                    location: "Near JSPM College, Handewadi",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_sunrise_girls": {
+                    title: "Sunrise Girls Residency",
+                    price: "₹5,500/mo",
+                    image: "https://images.unsplash.com/photo-1522771753033-6a9a695f1c96?auto=format&fit=crop&w=500&q=80",
+                    badges: "Girls, CCTV, Biometric, Food",
+                    location: "Sainagar, Handewadi",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_1bhk_student_flat": {
+                    title: "1BHK Student Flat",
+                    price: "₹12,000/mo",
+                    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=500&q=80",
+                    badges: "Flat, Kitchen, No Brokerage",
+                    location: "Undri-Handewadi Road",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_arnav_boys": {
+                    title: "Arnav Boys PG",
+                    price: "₹2,500/mo",
+                    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=500&q=80",
+                    badges: "Boys, Budget, Cot System",
+                    location: "Autadwadi, Handewadi",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_subhadra_girls": {
+                    title: "Subhadra Girls Hostel",
+                    price: "₹4,000/mo",
+                    image: "https://images.unsplash.com/photo-1596276256247-5d7ba62688dc?auto=format&fit=crop&w=500&q=80",
+                    badges: "Girls, Safe, Hot Water",
+                    location: "Satav Nagar",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_jhala_simplicity": {
+                    title: "Jhala Simplicity (Flats)",
+                    price: "₹15,000/mo",
+                    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=500&q=80",
+                    badges: "2BHK, Gated Society, Club House",
+                    location: "Handewadi Main Road",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_magarpatta_city": {
+                    title: "Magarpatta City PG",
+                    price: "₹8,000/mo",
+                    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=500&q=80",
+                    badges: "IT Hub, Premium, Furnished",
+                    location: "Hadapsar (5km from Handewadi)",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_amanora_boys": {
+                    title: "Amanora Boys Hostel",
+                    price: "₹6,000/mo",
+                    image: "https://images.unsplash.com/photo-1595524362625-f7615cb265b7?auto=format&fit=crop&w=500&q=80",
+                    badges: "Boys, Luxury, Gym",
+                    location: "Amanora Park Town",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_undri_student_hub": {
+                    title: "Undri Student Hub",
+                    price: "₹4,500/mo",
+                    image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80",
+                    badges: "Co-ed, Library, Study Room",
+                    location: "Undri Chowk",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_indira_girls": {
+                    title: "Indira Girls PG",
+                    price: "₹3,800/mo",
+                    image: "https://images.unsplash.com/photo-1621293954908-35152431d34e?auto=format&fit=crop&w=500&q=80",
+                    badges: "Girls, Home Food, Quiet",
+                    location: "Near JSPM Gate",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                },
+                "pg_meheriya_residency": {
+                    title: "Meheriya Residency",
+                    price: "₹10,500/mo",
+                    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=500&q=80",
+                    badges: "1BHK, Private, Balcony",
+                    location: "Behind JSPM College",
+                    commute: "",
+                    pin: "1234", status: "available", phone: ""
+                }
             };
 
-            firebase.database().ref('listings_data').update(defaults, (error) => {
+            firebase.database().ref('listings_data').set(defaults, (error) => {
                 if (error) alert("Error: " + error);
                 else {
-                    alert("Database Initialized! You can now add Phone Numbers.");
-                    // Refresh explicitly
+                    alert("Database Initialized with RICH DATA! 🚀\n\nNow go to pg-listings.html to see it dynamic!");
                     loadProperties();
                 }
             });

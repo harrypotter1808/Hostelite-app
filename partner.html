@@ -147,6 +147,44 @@
         </div>
     </div>
 
+    <!-- NEW: Edit Details Section -->
+    <div class="glass-card p-6 mt-6">
+        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <span>✏️</span> Edit Property Details
+        </h3>
+        <form onsubmit="saveDetails(event)" class="space-y-4">
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Property Name</label>
+                    <input type="text" id="editTitle" class="w-full px-4 py-2 rounded-xl border bg-gray-50">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Price (e.g. ₹3,500/mo)</label>
+                    <input type="text" id="editPrice" class="w-full px-4 py-2 rounded-xl border bg-gray-50">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-600 mb-1">Location</label>
+                <input type="text" id="editLocation" class="w-full px-4 py-2 rounded-xl border bg-gray-50">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-600 mb-1">Amenities (comma separated)</label>
+                <input type="text" id="editBadges" placeholder="WiFi, AC, Boys..."
+                    class="w-full px-4 py-2 rounded-xl border bg-gray-50">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-600 mb-1">Image URL</label>
+                <input type="text" id="editImage" placeholder="https://..."
+                    class="w-full px-4 py-2 rounded-xl border bg-gray-50">
+            </div>
+            <button type="submit"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-xl transition">
+                Save Changes 💾
+            </button>
+        </form>
+    </div>
+    </div>
+
     <!-- RECOVERY MODAL -->
     <div id="recoveryModal"
         class="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 p-6 hidden flex flex-col items-center justify-center">
@@ -269,7 +307,15 @@
             currentPropId = id;
             document.getElementById('loginContainer').classList.add('hidden');
             document.getElementById('dashboardSection').classList.remove('hidden');
-            document.getElementById('dashTitle').innerText = id.replace('pg_', '').replace(/_/g, ' ').toUpperCase();
+            document.getElementById('dashTitle').innerText = data.title || id.replace('pg_', '').replace(/_/g, ' ').toUpperCase();
+
+            // Populate Edit Form
+            document.getElementById('editTitle').value = data.title || '';
+            document.getElementById('editPrice').value = data.price || '';
+            document.getElementById('editLocation').value = data.location || '';
+            document.getElementById('editBadges').value = data.badges || '';
+            document.getElementById('editImage').value = data.image || '';
+
             updateUI(data ? data.status : 'available');
         }
 
@@ -277,6 +323,32 @@
             if (!currentPropId) return;
             firebase.database().ref('listings_data/' + currentPropId).update({ status: status });
             updateUI(status);
+        }
+
+        function saveDetails(e) {
+            e.preventDefault();
+            if (!currentPropId) return;
+
+            const updates = {
+                title: document.getElementById('editTitle').value,
+                price: document.getElementById('editPrice').value,
+                location: document.getElementById('editLocation').value,
+                badges: document.getElementById('editBadges').value,
+                image: document.getElementById('editImage').value
+            };
+
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = "Saving...";
+
+            firebase.database().ref('listings_data/' + currentPropId).update(updates).then(() => {
+                alert("Details Updated Successfully! ✅");
+                btn.innerText = originalText;
+                document.getElementById('dashTitle').innerText = updates.title;
+            }).catch(err => {
+                alert("Error: " + err.message);
+                btn.innerText = originalText;
+            });
         }
 
         function updateUI(status) {

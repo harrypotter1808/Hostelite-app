@@ -152,204 +152,30 @@
     <section class="section">
         <div class="container">
             <div class="listing-grid">
-                <!-- Listing 1: Budget Friendly -->
-                <div class="listing-card" data-id="pg_sai_student">
-                    <div class="verified-tag">✅ Verified</div>
-                    <div class="status-badge"
-                        style="position: absolute; top: 10px; left: 10px; background: #00b894; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; z-index: 10;">
-                        Available 🟢
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80"
-                        alt="Hostel" class="listing-img">
-                    <div class="listing-info">
-                        <h3>Sai Student Hostel</h3>
-                        <div class="commute-info">⏱️ 2 min walk to College</div>
-                        <p>Handewadi Road, Pune</p>
-                        <div class="badges">
-                            <span class="badge">Boys</span>
-                            <span class="badge">WiFi</span>
-                            <span class="badge">2 Sharing</span>
-                        </div>
-                        <div class="listing-price">₹3,500/mo</div>
-                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
+                <!-- Dynamic Container -->
+                <div id="dynamic-listings-container" style="display: contents;">
+                    <!-- Loading Skeleton -->
+                    <div class="col-span-full text-center py-10">
+                        <p class="text-xl text-gray-500 animate-pulse">Loading PGs from Live Database...</p>
                     </div>
                 </div>
 
-                <!-- Listing 2: Premium -->
-                <div class="listing-card" data-id="pg_stanza_living">
-                    <div class="status-badge"
-                        style="position: absolute; top: 10px; left: 10px; background: #00b894; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; z-index: 10;">
-                        Available 🟢
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=500&q=80"
-                        alt="Hostel" class="listing-img">
-                    <div class="listing-info">
-                        <h3>Stanza Living (Handewadi)</h3>
-                        <p>Near JSPM College, Handewadi</p>
-                        <div class="badges">
-                            <span class="badge">Co-ed</span>
-                            <span class="badge">AC</span>
-                            <span class="badge">Meals</span>
-                            <span class="badge">Gym</span>
-                        </div>
-                        <div class="listing-price">₹7,500/mo</div>
-                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Listing 3: Girls PG -->
-                <div class="listing-card" data-id="pg_sunrise_girls">
-                    <div class="status-badge"
-                        style="position: absolute; top: 10px; left: 10px; background: #00b894; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; z-index: 10;">
-                        Available 🟢
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1522771753033-6a9a695f1c96?auto=format&fit=crop&w=500&q=80"
-                        alt="Hostel" class="listing-img">
-                    <div class="listing-info">
-                        <h3>Sunrise Girls Residency</h3>
-                        <p>Sainagar, Handewadi</p>
-                        <div class="badges">
-                            <span class="badge">Girls</span>
-                            <span class="badge">CCTV</span>
-                            <span class="badge">Biometric</span>
-                            <span class="badge">Food</span>
-                        </div>
-                        <div class="listing-price">₹5,500/mo</div>
-                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Listing 4: Apartment -->
-                <div class="listing-card" data-id="pg_1bhk_student_flat">
-                    <div class="status-badge"
-                        style="position: absolute; top: 10px; left: 10px; background: #00b894; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; z-index: 10;">
-                        Available 🟢
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=500&q=80"
-                        alt="Flat" class="listing-img">
-                    <div class="listing-info">
-                        <h3>1BHK Student Flat</h3>
-                        <p>Undri-Handewadi Road</p>
-                        <div class="badges">
-                            <span class="badge">Flat</span>
-                            <span class="badge">Kitchen</span>
-                            <span class="badge">No Brokerage</span>
-                        </div>
-                        <div class="listing-price">₹12,000/mo</div>
-                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Listing 5: Budget Boys -->
-                <div class="listing-card" data-id="pg_arnav_boys">
-                    <div class="status-badge"
-                        style="position: absolute; top: 10px; left: 10px; background: #00b894; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; z-index: 10;">
-                        Available 🟢
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=500&q=80"
-                        alt="Hostel" class="listing-img">
-                    <div class="listing-info">
-                        <h3>Arnav Boys PG</h3>
-                        <p>Near Arnav Complex, Handewadi</p>
-                        <div class="badges">
-                            <span class="badge">Boys</span>
-                            <span class="badge">Food</span>
-                            <span class="badge">Budget</span>
-                        </div>
-                        <div class="listing-price">₹2,500/mo</div>
-                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Listing 6: Co-ed Standard -->
-                <div class="listing-card" data-id="pg_praacchi_borkarr">
-                    <div class="status-badge"
-                        style="position: absolute; top: 10px; left: 10px; background: #00b894; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; z-index: 10;">
-                        Available 🟢
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=500&q=80"
-                        alt="PG" class="listing-img">
-                    <div class="listing-info">
-                        <h3>Praacchi Borkarr PG</h3>
-                        <p>Handewadi Road</p>
-                        <div class="badges">
-                            <span class="badge">Co-ed</span>
-                            <span class="badge">WiFi</span>
-                            <span class="badge">AC</span>
-                        </div>
-                        <div class="listing-price">₹3,900/mo</div>
-                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Listing 7: Girls Hostel -->
-                <div class="listing-card" data-id="pg_subhadra_girls">
-                    <div class="status-badge"
-                        style="position: absolute; top: 10px; left: 10px; background: #00b894; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; z-index: 10;">
-                        Available 🟢
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80"
-                        alt="Hostel" class="listing-img">
-                    <div class="listing-info">
-                        <h3>Subhadra Girls Hostel</h3>
-                        <p>Handewadi-Hadapsar Link Rd</p>
-                        <div class="badges">
-                            <span class="badge">Girls</span>
-                            <span class="badge">Clean</span>
-                            <span class="badge">Ventilated</span>
-                        </div>
-                        <div class="listing-price">₹4,500/mo</div>
-                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Listing 8: Premium Apartment -->
-                <div class="listing-card" data-id="pg_jhala_simplicity">
-                    <div class="status-badge"
-                        style="position: absolute; top: 10px; left: 10px; background: #00b894; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; z-index: 10;">
-                        Available 🟢
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=500&q=80"
-                        alt="Apartment" class="listing-img">
-                    <div class="listing-info">
-                        <h3>Jhala Simplicity (Luxury)</h3>
-                        <p>Pune East, Handewadi</p>
-                        <div class="badges">
-                            <span class="badge">Flat</span>
-                            <span class="badge">Furnished</span>
-                            <span class="badge">High-rise</span>
-                        </div>
-                        <div class="listing-price">₹16,500/mo</div>
-                        <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
-                    </div>
-                </div>
             </div>
-
-            <!-- Listing 9 (Meheriya Residency) -->
-            <div class="listing-card" data-id="pg_meheriya_residency">
-                <div class="status-badge"
-                    style="position: absolute; top: 10px; left: 10px; background: #00b894; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; z-index: 10;">
-                    Available 🟢
-                </div>
-                <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=500&q=80"
-                    alt="Meheriya Residency" class="listing-img">
-                <div class="listing-info">
-                    <h3>Meheriya Residency</h3>
-                    <p>Handewadi, Pune</p>
-                    <div class="badges">
-                        <span class="badge">1BHK & 2BHK</span>
-                        <span class="badge">24h Water</span>
-                        <span class="badge">CCTV</span>
-                    </div>
-                    <div class="listing-price">₹7,000 - ₹9,000/mo</div>
-                    <button class="btn" style="margin-top: 1rem; width: 100%;">View Details</button>
-                </div>
-            </div>
-        </div>
         </div>
     </section>
 
-
+    <!-- Map Section -->
+    <section class="section" style="background-color: #f9f9f9;">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Explore on Map 🗺️</h2>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d15136.63468087289!2d73.91820665!3d18.476482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1spg%20near%20jspm%20college%20handewadi!5e0!3m2!1sen!2sin!4v1709999999999!5m2!1sen!2sin"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
 
     <!-- Detail Modal -->
     <div id="detailModal" class="modal-overlay">
