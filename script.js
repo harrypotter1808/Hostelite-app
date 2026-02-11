@@ -489,8 +489,8 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Fetch last 30 requests to ensure we have enough for groups
-        db.ref('requests').limitToLast(30).on('value', (snapshot) => {
+        // Fetch all requests (no limit)
+        db.ref('requests').on('value', (snapshot) => {
             const data = snapshot.val();
             container.innerHTML = '';
 
