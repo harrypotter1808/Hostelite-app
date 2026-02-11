@@ -961,6 +961,7 @@ footer {
 .form-section h2 {
     font-size: 1.8rem;
     background: linear-gradient(135deg, var(--text-color), #636e72);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -1031,6 +1032,7 @@ footer {
     outline: none;
     border-color: var(--primary-color);
 }
+
 /* Footer Styling */
 footer {
     text-align: center;
@@ -1041,4 +1043,35 @@ footer {
     font-size: 0.9rem;
     width: 100%;
     border-top: 1px solid #dfe6e9;
+}
+
+/* Community Board Grid */
+.board-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    /* Ensure it works even if not defined before */
+}
+
+/* Group Headers */
+.group-title {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.group-count {
+    font-size: 0.9rem;
+    background: #eee;
+    padding: 2px 8px;
+    border-radius: 12px;
+    color: #636e72;
+    font-weight: 600;
 }

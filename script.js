@@ -474,88 +474,110 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Community Board Logic
+    // Community Board Logic
     const initCommunityBoard = () => {
-        const grid = document.getElementById('communityGrid');
-        if (!grid || !db) return;
+        const container = document.getElementById('communityGrid');
+        if (!container || !db) return;
+
+        // Change main container to block layout for sections
+        container.className = 'community-board-container';
 
         // Show Skeleton / Loading State immediately
-        grid.innerHTML = `
-            <div class="student-card skeleton" style="opacity: 0.7; pointer-events: none;">
-                <div class="student-header">
-                    <div class="student-avatar" style="background:#e0e0e0; color:transparent;">?</div>
-                    <div class="student-info">
-                         <div class="student-name" style="background:#e0e0e0; color:transparent; width: 60%;">User</div>
-                         <div class="student-vibe-tag" style="background:#e0e0e0; color:transparent;">Vibe</div>
-                    </div>
-                </div>
-                <div class="student-req" style="background:#f5f5f5; color:transparent;">Loading description...</div>
-            </div>
-             <div class="student-card skeleton" style="opacity: 0.7; pointer-events: none;">
-                <div class="student-header">
-                     <div class="student-avatar" style="background:#e0e0e0; color:transparent;">?</div>
-                    <div class="student-info">
-                         <div class="student-name" style="background:#e0e0e0; color:transparent; width: 60%;">User</div>
-                         <div class="student-vibe-tag" style="background:#e0e0e0; color:transparent;">Vibe</div>
-                    </div>
-                </div>
-                <div class="student-req" style="background:#f5f5f5; color:transparent;">Loading description...</div>
+        container.innerHTML = `
+            <div class="loading-state" style="padding: 2rem; text-align: center; color: #636e72;">
+                Loading community...
             </div>
         `;
 
-        // Fetch last 6 requests
-        db.ref('requests').limitToLast(6).on('value', (snapshot) => {
+        // Fetch last 30 requests to ensure we have enough for groups
+        db.ref('requests').limitToLast(30).on('value', (snapshot) => {
             const data = snapshot.val();
-            grid.innerHTML = '';
+            container.innerHTML = '';
 
             if (data) {
                 // Convert to array and reverse to show newest first
                 const requests = Object.values(data).reverse();
 
+                // Grouping Logic
+                const groups = {};
+
                 requests.forEach(req => {
-                    const card = document.createElement('div');
-                    card.className = 'student-card';
-                    card.style.animation = 'fadeIn 0.5s ease-out';
+                    const rawType = req.type || 'Other Interests';
+                    // primary vibe is the first tag
+                    const primaryVibe = rawType.split(',')[0].trim();
 
-                    // Privacy: Only show First Name
-                    const displayName = req.name ? req.name.split(' ')[0] : 'Student';
-                    const initials = displayName.substring(0, 1).toUpperCase();
-                    const cleanPhone = req.contact ? req.contact.replace(/[^\d]/g, '') : '';
+                    if (!groups[primaryVibe]) {
+                        groups[primaryVibe] = [];
+                    }
+                    groups[primaryVibe].push(req);
+                });
 
-                    // Parse Vibe Tags (comma separated)
-                    const rawType = req.type || 'Student';
-                    const vibeTags = rawType.split(',').map(tag => tag.trim()).filter(Boolean);
+                // Render Groups
+                Object.keys(groups).forEach(vibe => {
+                    const groupRequests = groups[vibe];
+                    if (groupRequests.length === 0) return;
 
-                    const vibeHtml = vibeTags.map(tag => `<span class="student-vibe-tag">${tag}</span>`).join(' ');
+                    // 1. Section Header
+                    const sectionTitle = document.createElement('div');
+                    sectionTitle.className = 'group-title';
+                    sectionTitle.innerHTML = `
+                        ${vibe} 
+                        <span class="group-count">${groupRequests.length}</span>
+                    `;
+                    container.appendChild(sectionTitle);
 
-                    // Random Gradient for Avatar based on name length (pseudo-random)
-                    const hue = (displayName.length * 50) % 360;
-                    const avatarStyle = `background: linear-gradient(135deg, hsl(${hue}, 70%, 60%), hsl(${hue + 40}, 70%, 50%));`;
+                    // 2. Grid for this group
+                    const groupGrid = document.createElement('div');
+                    groupGrid.className = 'board-grid';
 
-                    card.innerHTML = `
-                        <div class="student-header">
-                            <div class="student-avatar" style="${avatarStyle}">
-                                ${initials}
-                            </div>
-                            <div class="student-info">
-                                <div class="student-name">${displayName}</div>
-                                <div class="student-vibes-list" style="display:flex; flex-wrap:wrap; gap:5px;">
-                                    ${vibeHtml}
+                    groupRequests.forEach(req => {
+                        const card = document.createElement('div');
+                        card.className = 'student-card';
+                        card.style.animation = 'fadeIn 0.5s ease-out';
+
+                        // Privacy: Only show First Name
+                        const displayName = req.name ? req.name.split(' ')[0] : 'Student';
+                        const initials = displayName.substring(0, 1).toUpperCase();
+                        const cleanPhone = req.contact ? req.contact.replace(/[^\d]/g, '') : '';
+
+                        // Parse Vibe Tags
+                        const rawType = req.type || 'Student';
+                        const vibeTags = rawType.split(',').map(tag => tag.trim()).filter(Boolean);
+                        const vibeHtml = vibeTags.map(tag => `<span class="student-vibe-tag">${tag}</span>`).join(' ');
+
+                        // Random Gradient
+                        const hue = (displayName.length * 50) % 360;
+                        const avatarStyle = `background: linear-gradient(135deg, hsl(${hue}, 70%, 60%), hsl(${hue + 40}, 70%, 50%));`;
+
+                        card.innerHTML = `
+                            <div class="student-header">
+                                <div class="student-avatar" style="${avatarStyle}">
+                                    ${initials}
+                                </div>
+                                <div class="student-info">
+                                    <div class="student-name">${displayName}</div>
+                                    <div class="student-vibes-list" style="display:flex; flex-wrap:wrap; gap:5px;">
+                                        ${vibeHtml}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="student-req">
-                            "${req.requirements || 'Looking for a roommate!'}"
-                        </div>
-                        
-                        <button onclick="window.open('https://wa.me/${cleanPhone}?text=Hi ${displayName}, saw you on Hostelite!', '_blank')" class="connect-btn">
-                            💬 Connect
-                        </button>
-                    `;
-                    grid.appendChild(card);
+                            
+                            <div class="student-req">
+                                "${req.requirements || 'Looking for a roommate!'}"
+                            </div>
+                            
+                            <button onclick="window.open('https://wa.me/${cleanPhone}?text=Hi ${displayName}, saw you on Hostelite!', '_blank')" class="connect-btn">
+                                💬 Connect
+                            </button>
+                        `;
+                        groupGrid.appendChild(card);
+                    });
+
+                    container.appendChild(groupGrid);
                 });
+
             } else {
-                grid.innerHTML = '<div style="text-align:center; padding:2rem; color:#636e72;">No requests yet. Be the first!</div>';
+                container.innerHTML = '<div style="text-align:center; padding:2rem; color:#636e72;">No requests yet. Be the first!</div>';
             }
         });
     };
