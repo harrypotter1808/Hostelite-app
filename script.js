@@ -90,6 +90,12 @@ window.submitRoommateForm = async (e) => {
         return;
     }
 
+    const contact = document.getElementById('rContact').value.trim();
+    if (!/^\d{10}$/.test(contact)) {
+        alert("Please enter a valid 10-digit phone number.");
+        return;
+    }
+
     const btn = e.target.querySelector('button[type="submit"]');
     const originalText = btn.innerText;
 
