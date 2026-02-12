@@ -42,20 +42,65 @@
                         <input type="tel" id="rContact" placeholder="WhatsApp Number" required
                             style="width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px;">
 
-                        <p style="margin: 0.5rem 0 0.5rem; color: #636e72; font-weight: 600;">Choose your vibe:</p>
-                        <div class="vibe-chips">
-                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Night Owl 🦉')">Night Owl
-                                🦉</button>
-                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Early Bird ☀️')">Early
-                                Bird ☀️</button>
-                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Gamer 🎮')">Gamer
-                                🎮</button>
-                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Studious 📚')">Studious
-                                📚</button>
-                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Fitness 💪')">Fitness
-                                💪</button>
-                            <button type="button" class="vibe-chip" onclick="selectVibe(this, 'Music 🎵')">Music
-                                🎵</button>
+                        <div class="profile-categories">
+                            <!-- 1. Sleep Schedule -->
+                            <div class="category-group">
+                                <label>Sleep Schedule 😴</label>
+                                <div class="vibe-chips" data-category="sleep">
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Early Bird ☀️')">Early Bird ☀️</button>
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Night Owl 🦉')">Night Owl 🦉</button>
+                                </div>
+                            </div>
+
+                            <!-- 2. Social Style -->
+                            <div class="category-group">
+                                <label>Social Battery 🔋</label>
+                                <div class="vibe-chips" data-category="social">
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Introvert 🧘‍♂️')">Introvert 🧘‍♂️</button>
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Ambivert ☯️')">Ambivert ☯️</button>
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Extrovert 🗣️')">Extrovert 🗣️</button>
+                                </div>
+                            </div>
+
+                            <!-- 3. Diet -->
+                            <div class="category-group">
+                                <label>Diet 🥗</label>
+                                <div class="vibe-chips" data-category="diet">
+                                    <button type="button" class="vibe-chip" onclick="selectOption(this, 'Veg 🌱')">Veg
+                                        🌱</button>
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Non-Veg 🍗')">Non-Veg 🍗</button>
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Vegan 🥑')">Vegan 🥑</button>
+                                </div>
+                            </div>
+
+                            <!-- 4. Study Style -->
+                            <div class="category-group">
+                                <label>Study Style 📚</label>
+                                <div class="vibe-chips" data-category="study">
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Solo Study 🤫')">Solo Study 🤫</button>
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Group Study 🤝')">Group Study 🤝</button>
+                                </div>
+                            </div>
+
+                            <!-- 5. Noise Tolerance -->
+                            <div class="category-group">
+                                <label>Noise Tolerance 🎧</label>
+                                <div class="vibe-chips" data-category="noise">
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Silence Please 🔇')">Silence Please 🔇</button>
+                                    <button type="button" class="vibe-chip"
+                                        onclick="selectOption(this, 'Music/TV OK 🎵')">Music/TV OK 🎵</button>
+                                </div>
+                            </div>
                         </div>
                         <input type="hidden" id="rType" required>
 

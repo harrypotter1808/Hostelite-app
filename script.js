@@ -46,23 +46,38 @@ window.closeRoommateModal = () => {
 
 // Vibe Chip Selection
 // Vibe Chip Selection (Multi-Select)
-window.selectVibe = (btn, value) => {
-    // Determine input element
-    const input = document.getElementById('rType');
+// Category Selection Logic
+window.selectOption = (btn, value) => {
+    // 1. Deselect siblings in the same group
+    const group = btn.parentElement;
+    group.querySelectorAll('.vibe-chip').forEach(c => c.classList.remove('selected'));
 
-    // Toggle visual state
-    btn.classList.toggle('selected');
+    // 2. Select clicked button
+    btn.classList.add('selected');
 
-    // Collect all selected values
-    const selectedChips = document.querySelectorAll('.vibe-chip.selected');
-    const values = Array.from(selectedChips).map(chip => chip.innerText.trim().replace(/[^a-zA-Z\s]/g, '').trim()); // Clean emojis if needed, or keep them
-
-    // Store as comma-separated string
-    // We will just store the raw text from the buttons for simplicity
-    const rawValues = Array.from(selectedChips).map(c => c.innerHTML.trim());
-
-    if (input) input.value = rawValues.join(', ');
+    // 3. Update Hidden Input with Composite String in Order
+    updateCompositeType();
 };
+
+function updateCompositeType() {
+    const input = document.getElementById('rType');
+    const categories = ['sleep', 'social', 'diet', 'study', 'noise'];
+    const values = [];
+
+    categories.forEach(cat => {
+        const group = document.querySelector(`.vibe-chips[data-category="${cat}"]`);
+        if (group) {
+            const selected = group.querySelector('.vibe-chip.selected');
+            if (selected) {
+                // extract text without emoji if needed, or keep emoji for display
+                // We keep emoji for display on card
+                values.push(selected.innerText.trim());
+            }
+        }
+    });
+
+    if (input) input.value = values.join(', ');
+}
 
 // Handle Roommate Form Submission (Realtime Database)
 window.submitRoommateForm = async (e) => {

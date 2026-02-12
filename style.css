@@ -817,6 +817,27 @@ footer {
     margin-bottom: 1.5rem;
 }
 
+.profile-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.category-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.category-group .vibe-chips {
+    margin-bottom: 0;
+}
+
 .vibe-chip {
     padding: 0.7rem 1.4rem;
     border: 1px solid #eee;
